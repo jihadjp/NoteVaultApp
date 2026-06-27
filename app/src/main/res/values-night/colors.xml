@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Night mode overrides -->
+    <color name="colorBackground">#1A1A2E</color>
+    <color name="colorSurface">#16213E</color>
+    <color name="colorTextPrimary">#F0F0FF</color>
+    <color name="colorTextSecondary">#9090AA</color>
+    <color name="colorDivider">#2A2A4A</color>
+    <color name="colorChipBackground">#2A2560</color>
+    <color name="colorDownloaded">#1B3A1F</color>
+</resources>

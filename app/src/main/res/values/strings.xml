@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NoteVault DIU</string>
+    <string name="app_tagline">Your notes, anywhere</string>
+
+    <!-- Home -->
+    <string name="search_hint">Search notes…</string>
+    <string name="tab_all_notes">All Notes</string>
+    <string name="tab_downloaded">Downloaded</string>
+    <string name="offline_banner">⚠ You\'re offline. Showing cached notes.</string>
+    <string name="empty_state_title">No notes found</string>
+    <string name="empty_state_subtitle">Pull down to refresh</string>
+
+    <!-- Note card -->
+    <string name="btn_view_pdf">View PDF</string>
+    <string name="btn_download">Download</string>
+    <string name="btn_delete_file">Delete File</string>
+    <string name="label_downloaded">Downloaded ✓</string>
+
+    <!-- Detail -->
+    <string name="loading_pdf">Loading PDF…</string>
+    <string name="error_load_pdf">Could not load PDF. Check your connection.</string>
+    <string name="btn_retry">Retry</string>
+    <string name="btn_share">Share</string>
+    <string name="btn_info">Info</string>
+
+    <!-- Info bottom sheet -->
+    <string name="info_title">Title</string>
+    <string name="info_subject">Subject</string>
+    <string name="info_uploaded_by">Uploaded By</string>
+    <string name="info_date">Date</string>
+    <string name="info_size">File Size</string>
+    <string name="info_downloads">Downloads</string>
+    <string name="info_server_url">Server URL</string>
+    <string name="info_local_path">Local Path</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_delete_file_title">Remove Offline File?</string>
+    <string name="dialog_delete_file_message">This will remove the PDF from your device.\nThe note will still be available online.</string>
+    <string name="dialog_delete_note_title">Delete Note?</string>
+    <string name="dialog_delete_note_message">This will permanently remove this note from your saved list.</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_remove_file">Remove File</string>
+    <string name="btn_delete_note">Delete Note</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_pdf_thumbnail">PDF thumbnail</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_more_options">More options</string>
+</resources>

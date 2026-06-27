@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Document shape centered in safe zone (72x72 around center) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.9"
+        android:pathData="M36,22 L66,22 L80,36 L80,86 L36,86 Z" />
+
+    <!-- Folded corner -->
+    <path
+        android:fillColor="#C5BFFF"
+        android:pathData="M66,22 L66,36 L80,36 Z" />
+
+    <!-- Lines on document -->
+    <path
+        android:fillColor="#6C63FF"
+        android:pathData="M42,50 L74,50 L74,53 L42,53 Z" />
+    <path
+        android:fillColor="#6C63FF"
+        android:pathData="M42,58 L68,58 L68,61 L42,61 Z" />
+    <path
+        android:fillColor="#6C63FF"
+        android:pathData="M42,66 L62,66 L62,69 L42,69 Z" />
+
+    <!-- Pink accent dot -->
+    <path
+        android:fillColor="#FF6584"
+        android:pathData="M54,35 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" />
+
+    <!-- Lock icon on pink dot -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30 C52,30 51,31.5 51,33 L51,34 L50.5,34 C50,34 49.5,34.5 49.5,35 L49.5,38 C49.5,38.5 50,39 50.5,39 L57.5,39 C58,39 58.5,38.5 58.5,38 L58.5,35 C58.5,34.5 58,34 57.5,34 L57,34 L57,33 C57,31.5 56,30 54,30 Z M54,31.5 C55.1,31.5 55.5,32.3 55.5,33 L55.5,34 L52.5,34 L52.5,33 C52.5,32.3 52.9,31.5 54,31.5 Z M54,35.5 C54.8,35.5 55.5,36.2 55.5,37 C55.5,37.5 55.2,37.9 54.8,38.1 L55,39 L53,39 L53.2,38.1 C52.8,37.9 52.5,37.5 52.5,37 C52.5,36.2 53.2,35.5 54,35.5 Z" />
+
+</vector>

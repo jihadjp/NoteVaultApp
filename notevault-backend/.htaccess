@@ -1,0 +1,8 @@
+Options -Indexes
+RewriteEngine On
+
+# ফাইল অস্তিত্ব থাকলে তা এক্সেস করতে দাও
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# বাকি সব রিকোয়েস্ট index.php তে পাঠাও
+RewriteRule ^(.*)$ index.php [QSA,L]

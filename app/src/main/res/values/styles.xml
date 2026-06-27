@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ── Base app theme ──────────────────────────────────────────────────── -->
+    <style name="Theme.NoteVaultDIU" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorSurface</item>
+    </style>
+
+    <!-- ── Splash theme (full-screen, no ActionBar) ───────────────────────── -->
+    <style name="Theme.NoteVaultDIU.Splash" parent="Theme.NoteVaultDIU">
+        <item name="android:windowBackground">@drawable/bg_splash_gradient</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- ── Toolbar style ──────────────────────────────────────────────────── -->
+    <style name="Widget.NoteVaultDIU.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@drawable/bg_toolbar_gradient</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+        <item name="subtitleTextColor">@color/colorWhite</item>
+    </style>
+
+    <!-- ── Typography ─────────────────────────────────────────────────────── -->
+    <style name="TextAppearance.NoteVaultDIU.Title"
+        parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="TextAppearance.NoteVaultDIU.Subtitle"
+        parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+    <style name="TextAppearance.NoteVaultDIU.Body"
+        parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="TextAppearance.NoteVaultDIU.Caption"
+        parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+    <!-- ── Card style ─────────────────────────────────────────────────────── -->
+    <style name="Widget.NoteVaultDIU.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/colorSurface</item>
+    </style>
+
+    <!-- ── Primary button ─────────────────────────────────────────────────── -->
+    <style name="Widget.NoteVaultDIU.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- ── Outlined button ────────────────────────────────────────────────── -->
+    <style name="Widget.NoteVaultDIU.Button.Outlined"
+        parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">12dp</item>
+        <item name="strokeColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- ── Danger / Delete button ─────────────────────────────────────────── -->
+    <style name="Widget.NoteVaultDIU.Button.Danger"
+        parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="backgroundTint">@color/colorError</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- ── Bottom sheet style ─────────────────────────────────────────────── -->
+    <style name="Widget.NoteVaultDIU.BottomSheet"
+        parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.NoteVaultDIU.BottomSheet</item>
+    </style>
+
+    <style name="ShapeAppearance.NoteVaultDIU.BottomSheet"
+        parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+</resources>

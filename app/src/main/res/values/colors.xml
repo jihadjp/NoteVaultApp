@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand -->
+    <color name="colorPrimary">#6C63FF</color>
+    <color name="colorPrimaryDark">#4B44CC</color>
+    <color name="colorAccent">#FF6584</color>
+
+    <!-- Backgrounds -->
+    <color name="colorBackground">#F5F6FA</color>
+    <color name="colorSurface">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="colorTextPrimary">#2D2D3A</color>
+    <color name="colorTextSecondary">#9E9EAE</color>
+
+    <!-- Semantic -->
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorError">#F44336</color>
+    <color name="colorWarning">#FF9800</color>
+
+    <!-- Card states -->
+    <color name="colorDownloaded">#E8F5E9</color>
+    <color name="cardShadow">#1A000000</color>
+
+    <!-- Misc -->
+    <color name="colorDivider">#E0E0E0</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorTransparent">#00000000</color>
+
+    <!-- Subject chip background -->
+    <color name="colorChipBackground">#EDE9FF</color>
+    <color name="colorChipText">#6C63FF</color>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude downloaded PDFs from backup (they can be re-downloaded) -->
+    <exclude domain="external" path="NoteVault/" />
+    <!-- Include Room database -->
+    <include domain="database" path="notevault_db" />
+</full-backup-content>

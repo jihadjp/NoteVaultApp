@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorSurface"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="32dp">
+
+    <!-- Handle indicator -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="#BDBDBD" />
+
+    <!-- Sheet title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Note Info"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvInfoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!-- Subject -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subject"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvInfoSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="14sp" />
+
+    <!-- Uploaded by -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uploaded By"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvInfoUploader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="14sp" />
+
+    <!-- Date -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvInfoDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="14sp" />
+
+    <!-- Size / Downloads row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File Size"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvInfoSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Downloads"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvInfoDownloads"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/colorDivider" />
+
+    <!-- Server URL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server URL"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvInfoServerUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/colorPrimary"
+        android:textIsSelectable="true"
+        android:textSize="12sp" />
+
+    <!-- Local path -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local Path"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvInfoLocalPath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/colorTextPrimary"
+        android:textIsSelectable="true"
+        android:textSize="12sp" />
+
+</LinearLayout>

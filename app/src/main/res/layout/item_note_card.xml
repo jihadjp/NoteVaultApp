@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardNote"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_margin"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:cardBackgroundColor="@color/colorSurface">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Downloaded badge (top-right overlay) -->
+        <TextView
+            android:id="@+id/tvDownloadedBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_downloaded_badge"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="Downloaded ✓"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="-12dp"
+            android:layout_marginTop="-12dp" />
+
+        <!-- Thumbnail -->
+        <ImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="@dimen/thumbnail_width"
+            android:layout_height="@dimen/thumbnail_height"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/cd_pdf_thumbnail"
+            android:background="@color/colorChipBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/btnMore"
+            app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Subject chip -->
+        <TextView
+            android:id="@+id/tvSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_subject_chip"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="@color/colorChipText"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <!-- Uploader -->
+        <TextView
+            android:id="@+id/tvUploader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvSubject"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <!-- File size -->
+        <TextView
+            android:id="@+id/tvFileSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="4dp"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+            app:layout_constraintTop_toBottomOf="@id/tvSubject" />
+
+        <!-- Separator dot -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text=" • "
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="11sp"
+            android:id="@+id/tvDot"
+            app:layout_constraintStart_toEndOf="@id/tvFileSize"
+            app:layout_constraintTop_toBottomOf="@id/tvSubject" />
+
+        <!-- Download count -->
+        <TextView
+            android:id="@+id/tvDownloadCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvDot"
+            app:layout_constraintTop_toBottomOf="@id/tvSubject" />
+
+        <!-- More button -->
+        <ImageButton
+            android:id="@+id/btnMore"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_more_options"
+            android:src="@android:drawable/ic_menu_more"
+            android:tint="@color/colorTextSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivThumbnail" />
+
+        <!-- Bottom action row -->
+        <!-- Download progress bar (while downloading) -->
+        <ProgressBar
+            android:id="@+id/progressDownload"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <!-- View PDF button -->
+        <Button
+            android:id="@+id/btnViewPdf"
+            style="@style/Widget.NoteVaultDIU.Button.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:text="👁 View PDF"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/btnDownload"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <!-- Download button -->
+        <Button
+            android:id="@+id/btnDownload"
+            style="@style/Widget.NoteVaultDIU.Button"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:text="⬇ Download"
+            android:textSize="12sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnViewPdf"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <!-- Delete file button (shown when downloaded) -->
+        <Button
+            android:id="@+id/btnDeleteFile"
+            style="@style/Widget.NoteVaultDIU.Button.Danger"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:text="🗑 Delete File"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnViewPdf"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

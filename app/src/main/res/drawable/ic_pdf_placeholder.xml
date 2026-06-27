@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="100dp"
+    android:viewportWidth="80"
+    android:viewportHeight="100">
+
+    <!-- Paper body -->
+    <path
+        android:fillColor="#EDE9FF"
+        android:pathData="M10,0 L55,0 L80,25 L80,100 L10,100 Z" />
+
+    <!-- Folded corner -->
+    <path
+        android:fillColor="#C5C0F0"
+        android:pathData="M55,0 L55,25 L80,25 Z" />
+
+    <!-- PDF label background -->
+    <path
+        android:fillColor="#6C63FF"
+        android:pathData="M10,40 L70,40 L70,65 L10,65 Z"
+        android:strokeWidth="0" />
+
+    <!-- PDF text (represented as paths) -->
+    <!-- P -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,48 L18,57 L21,57 L21,54 L24,54 C26,54 27,52.5 27,51 C27,49.5 26,48 24,48 Z M21,51 L24,51 C24.5,51 24.5,52 24,52 L21,52 Z" />
+    <!-- D -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M29,48 L29,57 L33,57 C36,57 38,55 38,52.5 C38,50 36,48 33,48 Z M32,51 L33,51 C34.5,51 35,51.5 35,52.5 C35,53.5 34.5,54 33,54 L32,54 Z" />
+    <!-- F -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M40,48 L40,57 L43,57 L43,54 L47,54 L47,51 L43,51 L43,51 L43,51 L47,51 L47,48 Z" />
+
+    <!-- Decorative lines -->
+    <path
+        android:fillColor="#C5C0F0"
+        android:pathData="M18,70 L62,70 L62,72 L18,72 Z" />
+    <path
+        android:fillColor="#C5C0F0"
+        android:pathData="M18,76 L50,76 L50,78 L18,78 Z" />
+    <path
+        android:fillColor="#C5C0F0"
+        android:pathData="M18,82 L56,82 L56,84 L18,84 Z" />
+</vector>

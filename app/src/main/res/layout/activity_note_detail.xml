@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <!-- App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="4dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/bg_toolbar_gradient"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationContentDescription="@string/cd_back"
+            app:titleTextColor="@color/colorWhite"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- PDF View area -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorBackground">
+
+            <!-- PDF Viewer -->
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdfView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!-- Loading overlay -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:indeterminateTint="@color/colorPrimary"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvLoadingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/loading_pdf"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <!-- Error state -->
+            <LinearLayout
+                android:id="@+id/errorLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="32dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/error_load_pdf"
+                    android:textColor="@color/colorError"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/btnRetry"
+                    style="@style/Widget.NoteVaultDIU.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/btn_retry" />
+
+            </LinearLayout>
+
+            <!-- Page indicator -->
+            <TextView
+                android:id="@+id/tvPageIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="12dp"
+                android:alpha="0.85"
+                android:background="#80000000"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text="Page 1 / 1" />
+
+        </FrameLayout>
+
+        <!-- Bottom action bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSurface"
+            android:elevation="8dp"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <!-- Download progress -->
+            <ProgressBar
+                android:id="@+id/progressDownloading"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorPrimary"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Download / Delete File buttons -->
+                <Button
+                    android:id="@+id/btnDownload"
+                    style="@style/Widget.NoteVaultDIU.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="⬇ Download"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btnDeleteFile"
+                    style="@style/Widget.NoteVaultDIU.Button.Danger"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="🗑 Delete File"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <!-- Share -->
+                <Button
+                    android:id="@+id/btnShare"
+                    style="@style/Widget.NoteVaultDIU.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="↗ Share"
+                    android:textSize="12sp" />
+
+                <!-- Info -->
+                <Button
+                    android:id="@+id/btnInfo"
+                    style="@style/Widget.NoteVaultDIU.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="📋 Info"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
