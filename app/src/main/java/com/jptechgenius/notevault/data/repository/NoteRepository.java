@@ -217,10 +217,35 @@ public class NoteRepository {
         e.setSubject(r.getSubject());
         e.setUploadedBy(r.getUploadedBy());
         e.setUploadedAt(r.getUploadedAt());
-        e.setServerUrl(r.getPdfUrl());
+
+        // Fix relative PDF URLs if necessary
+        String pdfUrl = r.getPdfUrl();
+        if (pdfUrl != null && !pdfUrl.isEmpty()) {
+            if (!pdfUrl.startsWith("http")) {
+                pdfUrl = Constants.BASE_URL + (pdfUrl.startsWith("/") ? pdfUrl.substring(1) : pdfUrl);
+            }
+        }
+        e.setServerUrl(pdfUrl);
+
         e.setFileSize(r.getFileSize());
         e.setDownloadCount(r.getDownloadCount());
-        e.setThumbnailUrl(r.getThumbnailUrl());
+
+        // Fix relative or placeholder Thumbnail URLs
+        String thumbUrl = r.getThumbnailUrl();
+        if (thumbUrl != null && !thumbUrl.trim().isEmpty()) {
+            // Handle placeholders
+            if (thumbUrl.contains("yourdomain.com")) {
+                thumbUrl = thumbUrl.replace("yourdomain.com", "notevault.jihadjp.com");
+            }
+            // Handle relative paths
+            if (!thumbUrl.startsWith("http")) {
+                thumbUrl = Constants.BASE_URL + (thumbUrl.startsWith("/") ? thumbUrl.substring(1) : thumbUrl);
+            }
+        } else {
+            thumbUrl = null; // Ensure null if empty to avoid Glide issues
+        }
+        e.setThumbnailUrl(thumbUrl);
+
         e.setSavedAt(System.currentTimeMillis());
         return e;
     }
