@@ -1,14 +1,14 @@
 <?php
 // ─────────────────────────────────────────────────────────────
 // api/notes/show.php
-// GET /api/notes/{id} — একটা specific note return করে
+// GET /api/notes/{id} — returns a specific note
 // ─────────────────────────────────────────────────────────────
 
 function handleShow(int $id): void {
     $db = getDB();
 
     $stmt = $db->prepare(
-        "SELECT * FROM notes WHERE id = :id AND is_active = 1"
+        "SELECT * FROM notes WHERE id = :id"
     );
     $stmt->execute([':id' => $id]);
     $note = $stmt->fetch();
@@ -17,12 +17,9 @@ function handleShow(int $id): void {
         sendError('Note not found.', 404);
     }
 
-    $note = castNoteTypes($note);
-    sendSuccess($note);
-}
+    if (!function_exists('formatNoteForResponse')) {
+        require_once __DIR__ . '/index.php';
+    }
 
-// castNoteTypes index.php তে define হয়েছে
-// কিন্তু এই file directly call হলে দরকার হবে
-if (!function_exists('castNoteTypes')) {
-    require_once __DIR__ . '/index.php';
+    sendSuccess(formatNoteForResponse($note));
 }

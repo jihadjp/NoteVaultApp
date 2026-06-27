@@ -237,6 +237,10 @@ public class NoteDetailActivity extends AppCompatActivity {
         sheetBinding.tvInfoTitle.setText(note.getTitle());
         sheetBinding.tvInfoSubject.setText(
                 note.getSubject() != null ? note.getSubject() : "—");
+        sheetBinding.tvInfoCourseCode.setText(
+                note.getCourseCode() != null ? note.getCourseCode() : "—");
+        sheetBinding.tvInfoDepartment.setText(
+                note.getDepartmentName() != null ? note.getDepartmentName() : "—");
         sheetBinding.tvInfoUploader.setText(
                 note.getUploadedBy() != null ? note.getUploadedBy() : "—");
         sheetBinding.tvInfoDate.setText(

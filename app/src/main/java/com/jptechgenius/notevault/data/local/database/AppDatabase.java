@@ -14,7 +14,7 @@ import com.jptechgenius.notevault.utils.Constants;
  * Room database singleton for NoteVault DIU.
  * Holds the notes table and provides DAO access.
  */
-@Database(entities = {NoteEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {NoteEntity.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase instance;

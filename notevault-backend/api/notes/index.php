@@ -1,37 +1,30 @@
 <?php
 // ─────────────────────────────────────────────────────────────
 // api/notes/index.php
-// GET /api/notes — সব active notes return করে
-//
-// Query params (optional):
-//   ?subject=CSE2101    → subject filter
-//   ?limit=20           → কতটা দেখাবে (default 50)
-//   ?offset=0           → pagination
+// GET /api/notes — returns all approved notes in diunotes format
 // ─────────────────────────────────────────────────────────────
 
 function handleIndex(): void {
     $db = getDB();
 
     // Optional filters
-    $subject = $_GET['subject'] ?? null;
-    $limit   = min((int)($_GET['limit']  ?? 50), 100); // max 100
-    $offset  = max((int)($_GET['offset'] ?? 0),  0);
+    $courseCode = $_GET['courseCode'] ?? null;
+    $limit      = min((int)($_GET['limit']  ?? 50), 100);
+    $offset     = max((int)($_GET['offset'] ?? 0),  0);
 
-    // Base query
-    $sql    = "SELECT * FROM notes WHERE is_active = 1";
+    // Base query - only show APPROVED notes
+    $sql    = "SELECT * FROM notes WHERE status = 'APPROVED'";
     $params = [];
 
-    // Subject filter
-    if ($subject) {
-        $sql     .= " AND subject = :subject";
-        $params[':subject'] = $subject;
+    if ($courseCode) {
+        $sql .= " AND course_code = :courseCode";
+        $params[':courseCode'] = $courseCode;
     }
 
     $sql .= " ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
 
     $stmt = $db->prepare($sql);
 
-    // Named params bind করো
     foreach ($params as $key => $value) {
         $stmt->bindValue($key, $value);
     }
@@ -41,30 +34,37 @@ function handleIndex(): void {
     $stmt->execute();
     $notes = $stmt->fetchAll();
 
-    // int/float cast করো — JSON তে string হিসেবে না যায়
-    $notes = array_map('castNoteTypes', $notes);
+    $notes = array_map('formatNoteForResponse', $notes);
 
     sendSuccess($notes);
 }
 
 /**
- * DB থেকে আসা string values গুলো সঠিক type এ cast করো।
- * Android এর NoteResponse POJO এর সাথে match করতে হবে।
+ * Formats database row to match the NoteResponse POJO (camelCase).
  */
-function castNoteTypes(array $note): array {
-    $note['id']             = (int)   $note['id'];
-    $note['file_size']      = (int)   $note['file_size'];
-    $note['download_count'] = (int)   $note['download_count'];
-    $note['is_active']      = (bool)  $note['is_active'];
-
-    // Android এ null safe করো
-    $note['description']    = $note['description']    ?? '';
-    $note['subject']        = $note['subject']        ?? '';
-    $note['uploaded_by']    = $note['uploaded_by']    ?? '';
-    $note['thumbnail_url']  = $note['thumbnail_url']  ?? '';
-
-    // Android এর NoteResponse এ দরকার নেই এগুলো
-    unset($note['created_at'], $note['updated_at'], $note['is_active']);
-
-    return $note;
+function formatNoteForResponse(array $row): array {
+    return [
+        'id'                    => (int) $row['id'],
+        'title'                 => $row['title'],
+        'fileUrl'               => $row['file_url'],
+        'description'           => $row['description'] ?? '',
+        'courseId'              => (int) ($row['course_id'] ?? 0),
+        'courseCode'            => $row['course_code'] ?? '',
+        'courseName'            => $row['course_name'] ?? '',
+        'departmentId'          => (int) ($row['department_id'] ?? 0),
+        'departmentName'        => $row['department_name'] ?? '',
+        'userName'              => $row['user_name'] ?? 'Anonymous',
+        'createdAt'             => $row['created_at'],
+        'updatedAt'             => $row['updated_at'],
+        'userId'                => (int) ($row['user_id'] ?? 0),
+        'likeCount'             => (int) $row['like_count'],
+        'dislikeCount'          => (int) $row['dislike_count'],
+        'likedByCurrentUser'    => false,
+        'dislikedByCurrentUser' => false,
+        'savedByCurrentUser'    => false,
+        'viewCount'             => (int) $row['view_count'],
+        'status'                => $row['status'],
+        'approvedAt'            => $row['approved_at'],
+        'thumbnail_url'         => $row['thumbnail_url'] ?? ''
+    ];
 }

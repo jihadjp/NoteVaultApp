@@ -87,7 +87,13 @@ public class NoteAdapter extends ListAdapter<NoteEntity, NoteAdapter.NoteViewHol
 
         void bind(NoteEntity note, NoteClickListener listener, int downloadingNoteId) {
             binding.tvTitle.setText(note.getTitle());
-            binding.tvSubject.setText(note.getSubject() != null ? note.getSubject() : "General");
+            
+            String subjectDisplay = note.getSubject();
+            if (note.getCourseCode() != null && !note.getCourseCode().isEmpty()) {
+                subjectDisplay = note.getCourseCode() + " • " + subjectDisplay;
+            }
+            binding.tvSubject.setText(subjectDisplay != null ? subjectDisplay : "General");
+
             binding.tvUploader.setText(note.getUploadedBy() != null
                     ? note.getUploadedBy() : "Anonymous");
             binding.tvFileSize.setText(FileUtils.formatSize(note.getFileSize()));

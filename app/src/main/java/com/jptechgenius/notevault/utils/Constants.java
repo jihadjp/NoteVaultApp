@@ -7,7 +7,7 @@ public final class Constants {
 
     private Constants() {}
 
-    // API
+    // API - Pointing to your NoteVault backend (which now uses diunotes schema)
     public static final String BASE_URL = "https://notevault.jihadjp.com/";
 
     // Database

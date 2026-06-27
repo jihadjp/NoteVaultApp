@@ -214,12 +214,16 @@ public class NoteRepository {
         e.setId(r.getId());
         e.setTitle(r.getTitle());
         e.setDescription(r.getDescription());
-        e.setSubject(r.getSubject());
-        e.setUploadedBy(r.getUploadedBy());
-        e.setUploadedAt(r.getUploadedAt());
+        
+        // Mapping diunotes.com schema to NoteEntity
+        e.setSubject(r.getCourseName()); // Maps courseName to subject
+        e.setCourseCode(r.getCourseCode());
+        e.setDepartmentName(r.getDepartmentName());
+        e.setUploadedBy(r.getUserName());
+        e.setUploadedAt(r.getCreatedAt());
 
         // Fix relative PDF URLs if necessary
-        String pdfUrl = r.getPdfUrl();
+        String pdfUrl = r.getFileUrl();
         if (pdfUrl != null && !pdfUrl.isEmpty()) {
             if (!pdfUrl.startsWith("http")) {
                 pdfUrl = Constants.BASE_URL + (pdfUrl.startsWith("/") ? pdfUrl.substring(1) : pdfUrl);
@@ -227,22 +231,19 @@ public class NoteRepository {
         }
         e.setServerUrl(pdfUrl);
 
-        e.setFileSize(r.getFileSize());
-        e.setDownloadCount(r.getDownloadCount());
+        // Map viewCount to downloadCount if fileSize is not provided by API
+        e.setDownloadCount(r.getViewCount());
+        e.setLikeCount(r.getLikeCount());
+        e.setDislikeCount(r.getDislikeCount());
 
         // Fix relative or placeholder Thumbnail URLs
         String thumbUrl = r.getThumbnailUrl();
         if (thumbUrl != null && !thumbUrl.trim().isEmpty()) {
-            // Handle placeholders
-            if (thumbUrl.contains("yourdomain.com")) {
-                thumbUrl = thumbUrl.replace("yourdomain.com", "notevault.jihadjp.com");
-            }
-            // Handle relative paths
             if (!thumbUrl.startsWith("http")) {
                 thumbUrl = Constants.BASE_URL + (thumbUrl.startsWith("/") ? thumbUrl.substring(1) : thumbUrl);
             }
         } else {
-            thumbUrl = null; // Ensure null if empty to avoid Glide issues
+            thumbUrl = null;
         }
         e.setThumbnailUrl(thumbUrl);
 

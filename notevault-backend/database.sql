@@ -1,5 +1,5 @@
 -- ─────────────────────────────────────────────────────────────
--- NoteVault DIU — Database Schema
+-- NoteVault DIU — Database Schema (Updated for diunotes format)
 -- MySQL 5.7+ / MariaDB 10.3+ compatible
 -- ─────────────────────────────────────────────────────────────
 
@@ -14,67 +14,61 @@ CREATE TABLE IF NOT EXISTS notes (
     id              INT             AUTO_INCREMENT PRIMARY KEY,
     title           VARCHAR(255)    NOT NULL,
     description     TEXT,
-    subject         VARCHAR(100),
-    uploaded_by     VARCHAR(100),
-    uploaded_at     DATE,
-    pdf_url         VARCHAR(500)    NOT NULL,
-    file_size       BIGINT          DEFAULT 0,
-    download_count  INT             DEFAULT 0,
+    file_url        VARCHAR(500)    NOT NULL,
+
+    course_id       INT,
+    course_code     VARCHAR(50),
+    course_name     VARCHAR(255),
+
+    department_id   INT,
+    department_name VARCHAR(100),
+
+    user_id         INT,
+    user_name       VARCHAR(100),
+
+    like_count      INT             DEFAULT 0,
+    dislike_count   INT             DEFAULT 0,
+    view_count      INT             DEFAULT 0,
+
+    status          ENUM('PENDING', 'APPROVED', 'REJECTED') DEFAULT 'PENDING',
+
     thumbnail_url   VARCHAR(500),
+
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_active       TINYINT(1)      DEFAULT 1
+    approved_at     TIMESTAMP       NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Index for search performance
-CREATE INDEX idx_title   ON notes(title);
-CREATE INDEX idx_subject ON notes(subject);
-CREATE INDEX idx_active  ON notes(is_active);
+CREATE INDEX idx_title         ON notes(title);
+CREATE INDEX idx_course_code   ON notes(course_code);
+CREATE INDEX idx_course_name   ON notes(course_name);
+CREATE INDEX idx_status        ON notes(status);
 
 -- ─── Sample Data ──────────────────────────────────────────────
-INSERT INTO notes (title, description, subject, uploaded_by, uploaded_at, pdf_url, file_size, download_count, thumbnail_url)
+INSERT INTO notes (title, description, course_code, course_name, department_name, user_name, file_url, view_count, status, approved_at)
 VALUES
 (
     'Numerical Method Part 4',
-    'Chapter 1-10 complete notes including arrays, linked lists, trees, graphs and sorting algorithms.',
-    'CSE 2101',
+    'Chapter 1-10 complete notes.',
+    'CSE226',
+    'Numerical Methods',
+    'CSE',
     'Dr. Rahim Uddin',
-    '2024-01-15',
     'https://api.diunotes.com/uploads/notes/Numerical_Method__Part_4_CSE226_Numerical_Methods_CSE_4d6a64ac9446.pdf',
-    2457600,
     1234,
-    'https://notevault.jihadjp.com/uploads/thumbnails/ds_notes.jpg'
+    'APPROVED',
+    '2024-01-15 10:00:00'
 ),
 (
     'OOP Lecture Slides Full Semester',
-    'Complete Object Oriented Programming slides covering all topics from semester.',
-    'CSE 1102',
+    'Complete Object Oriented Programming slides.',
+    'CSE1102',
+    'OOP',
+    'CSE',
     'Prof. Karim Hassan',
-    '2024-02-20',
     'https://api.diunotes.com/uploads/notes/Error_Analysis_CSE226_Numerical_Methods_CSE_31bfab5977dd.pdf',
-    1048576,
     567,
-    'https://notevault.jihadjp.com/uploads/thumbnails/oop_slides.jpg'
-),
-(
-    'Database Management System Notes',
-    'Full DBMS notes - ER diagram, normalization, SQL queries, transactions.',
-    'CSE 3201',
-    'Fatema Begum',
-    '2024-03-10',
-    'https://api.diunotes.com/uploads/notes/Numerical_Method__Part_3_CSE226_Numerical_Methods_CSE_95aea51115df.pdf',
-    3145728,
-    890,
-    'https://notevault.jihadjp.com/uploads/thumbnails/dbms_notes.jpg'
-),
-(
-    'Computer Networks Short Notes',
-    'OSI model, TCP/IP, routing protocols - concise exam preparation notes.',
-    'CSE 3301',
-    'Arif Hossain',
-    '2024-03-25',
-    'https://api.diunotes.com/uploads/notes/Numerical_Method__Part_2_CSE226_Numerical_Methods_CSE_0d5282d0d8fc.pdf',
-    1572864,
-    432,
-    'https://notevault.jihadjp.com/uploads/thumbnails/cn_notes.jpg'
+    'APPROVED',
+    '2024-02-20 14:30:00'
 );

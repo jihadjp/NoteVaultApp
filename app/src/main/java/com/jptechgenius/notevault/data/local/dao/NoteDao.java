@@ -47,6 +47,8 @@ public interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE title LIKE '%' || :query || '%' " +
            "OR subject LIKE '%' || :query || '%' " +
+           "OR courseCode LIKE '%' || :query || '%' " +
+           "OR departmentName LIKE '%' || :query || '%' " +
            "OR uploadedBy LIKE '%' || :query || '%' " +
            "ORDER BY savedAt DESC")
     LiveData<List<NoteEntity>> searchNotes(String query);
