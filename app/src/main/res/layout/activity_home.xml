@@ -29,7 +29,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="NoteVault"
+                    app:title="NoteVault DIU"
                     app:titleTextColor="@color/colorTextPrimary"
                     app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
 
@@ -49,7 +49,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Good Morning,"
+                            android:text="Good Morning, 🌅"
                             android:textColor="@color/colorTextSecondary"
                             android:textSize="14sp" />
 
@@ -57,7 +57,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Vault Member"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             android:letterSpacing="-0.02" />
@@ -69,15 +69,17 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:strokeWidth="1.5dp"
-                        app:strokeColor="@color/colorDivider">
-                        <ImageView
+                        app:cardElevation="8dp"
+                        app:cardBackgroundColor="@color/gradient_start"
+                        app:strokeWidth="0dp">
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@android:drawable/ic_menu_myplaces"
-                            android:padding="10dp"
-                            app:tint="@color/colorPrimary" />
+                            android:gravity="center"
+                            android:text="VM"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
                     </com.google.android.material.card.MaterialCardView>
                 </RelativeLayout>
 
@@ -88,9 +90,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginHorizontal="24dp"
-                    android:background="@drawable/bg_offline_banner"
+                    android:background="@drawable/bg_glass_badge_success"
                     android:gravity="center"
-                    android:padding="8dp"
+                    android:padding="10dp"
                     android:text="@string/offline_banner"
                     android:textColor="@color/colorError"
                     android:textSize="12sp"
@@ -98,15 +100,12 @@
                     android:visibility="gone" />
 
                 <!-- Search Card -->
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginHorizontal="24dp"
                     android:layout_marginTop="28dp"
-                    app:cardCornerRadius="18dp"
-                    app:cardElevation="6dp"
-                    app:cardForegroundColor="#05000000"
-                    app:strokeWidth="0dp">
+                    android:background="@drawable/bg_glass_search">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -137,8 +136,14 @@
                             android:textSize="15sp"
                             tools:ignore="RtlSymmetry" />
 
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@android:drawable/ic_btn_speak_now"
+                            app:tint="@color/colorTextSecondary" />
+
                     </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -150,16 +155,16 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="18dp"
             app:cardElevation="0dp"
-            app:strokeWidth="1dp"
+            app:strokeWidth="1.5dp"
             app:strokeColor="@color/colorDivider"
             app:cardBackgroundColor="@color/colorSurfaceVariant">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:background="@color/colorTransparent"
                 app:tabGravity="fill"
                 app:tabIndicatorGravity="stretch"
@@ -169,8 +174,7 @@
                 app:tabMode="fixed"
                 app:tabRippleColor="@color/colorTransparent"
                 app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextColor="@color/colorTextSecondary"
-                app:tabTextAppearance="@style/TextAppearance.NoteVaultDIU.Subtitle" />
+                app:tabTextColor="@color/colorTextSecondary" />
         </com.google.android.material.card.MaterialCardView>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -224,7 +228,7 @@
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:src="@drawable/ic_pdf_placeholder"
-                    android:alpha="0.1" />
+                    android:alpha="0.2" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -262,7 +266,7 @@
         android:textStyle="bold"
         app:icon="@android:drawable/ic_input_add"
         app:iconTint="@color/colorWhite"
-        app:backgroundTint="@color/colorPrimary"
-        app:elevation="8dp" />
+        android:backgroundTint="@color/gradient_start"
+        app:elevation="12dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

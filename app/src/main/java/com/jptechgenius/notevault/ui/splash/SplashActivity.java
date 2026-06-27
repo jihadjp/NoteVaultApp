@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        ImageView ivLogo = findViewById(R.id.ivSplashLogo);
+        View vLogo = findViewById(R.id.ivSplashLogo);
         TextView tvAppName = findViewById(R.id.tvSplashAppName);
         TextView tvTagline = findViewById(R.id.tvSplashTagline);
 
@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
         animSet.addAnimation(fade);
         animSet.setFillAfter(true);
 
-        ivLogo.startAnimation(animSet);
+        vLogo.startAnimation(animSet);
         tvAppName.startAnimation(animSet);
         tvTagline.startAnimation(animSet);
 

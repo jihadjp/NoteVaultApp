@@ -41,4 +41,11 @@
     <!-- Gradients -->
     <color name="gradient_start">#4F46E5</color>
     <color name="gradient_end">#7C3AED</color>
+    <color name="gradient_light_lavender">#E0E7FF</color>
+
+    <!-- Glassmorphism -->
+    <color name="colorGlassWhite">#B3FFFFFF</color> <!-- 70% opacity -->
+    <color name="colorGlassStroke">#4DFFFFFF</color> <!-- 30% opacity -->
+    <color name="colorGlassSurface">#D9FFFFFF</color> <!-- 85% opacity -->
+    <color name="colorGlassDark">#B316213E</color> <!-- 70% opacity for dark mode -->
 </resources>

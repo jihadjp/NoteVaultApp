@@ -245,8 +245,6 @@ public class NoteDetailActivity extends AppCompatActivity {
                 FileUtils.formatSize(note.getFileSize()));
         sheetBinding.tvInfoDownloads.setText(
                 FileUtils.formatDownloadCount(note.getDownloadCount()) + " downloads");
-        sheetBinding.tvInfoServerUrl.setText(
-                note.getServerUrl() != null ? note.getServerUrl() : "—");
 
         if (note.isDownloaded() && note.getLocalFilePath() != null) {
             sheetBinding.tvInfoLocalPath.setText(note.getLocalFilePath());

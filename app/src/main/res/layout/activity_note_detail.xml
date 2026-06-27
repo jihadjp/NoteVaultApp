@@ -10,7 +10,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSurface"
+        android:background="@color/colorGlassSurface"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -23,85 +23,95 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <FrameLayout
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdfView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent" />
 
-            <com.github.barteksc.pdfviewer.PDFView
-                android:id="@+id/pdfView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <LinearLayout
-                android:id="@+id/loadingLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:indeterminateTint="@color/colorPrimary" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/loading_pdf"
-                    android:textColor="@color/colorTextSecondary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/errorLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="40dp"
-                android:visibility="gone">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/error_load_pdf"
-                    android:textColor="@color/colorError" />
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnRetry"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/btn_retry" />
-            </LinearLayout>
-
+        <LinearLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:indeterminateTint="@color/colorPrimary" />
             <TextView
-                android:id="@+id/tvPageIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_page_indicator"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textColor="@color/colorWhite"
-                android:textSize="11sp"
-                android:visibility="gone" />
+                android:layout_marginTop="16dp"
+                android:text="@string/loading_pdf"
+                android:textColor="@color/colorTextSecondary"
+                android:textStyle="italic" />
+        </LinearLayout>
 
-        </FrameLayout>
+        <LinearLayout
+            android:id="@+id/errorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="40dp"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_pdf_placeholder"
+                android:alpha="0.2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Couldn't load this note"
+                android:textColor="@color/colorTextPrimary"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/btn_retry"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_primary_gradient"
+                app:backgroundTint="@null"
+                app:cornerRadius="12dp" />
+        </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvPageIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="110dp"
+            android:background="@drawable/bg_pill_subject_gradient"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="6dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <!-- Floating Bottom Bar -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="8dp"
-            app:strokeWidth="0dp">
+            android:layout_gravity="bottom"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/colorGlassStroke"
+            app:cardBackgroundColor="@color/colorGlassSurface">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,64 +123,79 @@
                     android:id="@+id/progressDownloading"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="4dp"
+                    android:layout_height="3dp"
                     android:layout_marginBottom="8dp"
                     android:indeterminate="true"
-                    android:indeterminateTint="@color/colorPrimary"
+                    android:indeterminateTint="@color/gradient_end"
                     android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal">
+                    android:layout_height="52dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnDownload"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1.2"
+                        android:layout_weight="1.5"
                         android:text="Download"
                         android:textAllCaps="false"
-                        app:cornerRadius="12dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnDeleteFile"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.2"
-                        android:text="Remove"
-                        android:textAllCaps="false"
-                        android:visibility="gone"
-                        app:backgroundTint="@color/colorError"
-                        app:cornerRadius="12dp" />
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_button_primary_gradient"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="16dp"
+                        app:icon="@android:drawable/stat_sys_download_done" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnShare"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="12dp"
                         android:layout_weight="1"
                         android:text="Share"
                         android:textAllCaps="false"
-                        app:icon="@android:drawable/ic_menu_share" />
+                        android:textColor="@color/colorTextPrimary"
+                        app:strokeColor="@color/colorDivider"
+                        app:cornerRadius="16dp"
+                        app:icon="@android:drawable/ic_menu_share"
+                        app:iconTint="@color/colorTextPrimary" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnInfo"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Info"
-                        android:textAllCaps="false"
-                        app:icon="@android:drawable/ic_menu_info_details" />
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="12dp"
+                        android:padding="0dp"
+                        app:icon="@android:drawable/ic_menu_info_details"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/colorTextPrimary"
+                        app:strokeColor="@color/colorDivider"
+                        app:cornerRadius="26dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDeleteFile"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="12dp"
+                        android:padding="0dp"
+                        android:visibility="gone"
+                        app:icon="@android:drawable/ic_menu_delete"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/colorError"
+                        app:strokeColor="@color/colorError"
+                        app:cornerRadius="26dp" />
 
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
