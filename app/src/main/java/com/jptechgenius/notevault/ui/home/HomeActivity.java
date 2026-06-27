@@ -5,21 +5,18 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.jptechgenius.notevault.R;
 import com.jptechgenius.notevault.data.local.entity.NoteEntity;
+import com.jptechgenius.notevault.databinding.ActivityHomeBinding;
 import com.jptechgenius.notevault.ui.detail.NoteDetailActivity;
 import com.jptechgenius.notevault.utils.Constants;
 
@@ -33,26 +30,18 @@ import java.util.List;
  */
 public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteClickListener {
 
+    private ActivityHomeBinding binding;
     private HomeViewModel viewModel;
     private NoteAdapter adapter;
-
-    // Views
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefresh;
-    private ShimmerFrameLayout shimmerLayout;
-    private View offlineBanner;
-    private View emptyState;
-    private TabLayout tabLayout;
-    private EditText etSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Toolbar
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("NoteVault DIU");
         }
@@ -66,27 +55,23 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
     }
 
     private void initViews() {
-        recyclerView = findViewById(R.id.recyclerNotes);
-        swipeRefresh = findViewById(R.id.swipeRefresh);
-        shimmerLayout = findViewById(R.id.shimmerLayout);
-        offlineBanner = findViewById(R.id.offlineBanner);
-        emptyState = findViewById(R.id.emptyState);
-        tabLayout = findViewById(R.id.tabLayout);
-        etSearch = findViewById(R.id.etSearch);
+        binding.fabUpload.setOnClickListener(v -> {
+            Snackbar.make(v, "Upload feature coming soon!", Snackbar.LENGTH_LONG).show();
+        });
     }
 
     private void setupRecyclerView() {
         adapter = new NoteAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
+        binding.recyclerNotes.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerNotes.setAdapter(adapter);
+        binding.recyclerNotes.setHasFixedSize(true);
     }
 
     private void setupTabs() {
-        tabLayout.addTab(tabLayout.newTab().setText("All Notes"));
-        tabLayout.addTab(tabLayout.newTab().setText("Downloaded"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("All Notes"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Downloaded"));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
@@ -96,7 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
                     viewModel.setCurrentTab(HomeViewModel.Tab.DOWNLOADED);
                     observeDownloadedNotes();
                 }
-                etSearch.setText(""); // Clear search on tab switch
+                binding.etSearch.setText(""); // Clear search on tab switch
             }
 
             @Override public void onTabUnselected(TabLayout.Tab tab) {}
@@ -105,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
     }
 
     private void setupSearch() {
-        etSearch.addTextChangedListener(new TextWatcher() {
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int st, int c, int a) {}
             @Override public void onTextChanged(CharSequence s, int st, int b, int c) {}
 
@@ -127,8 +112,8 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
     }
 
     private void setupSwipeRefresh() {
-        swipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
-        swipeRefresh.setOnRefreshListener(() -> viewModel.loadFromServer());
+        binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
+        binding.swipeRefresh.setOnRefreshListener(() -> viewModel.loadFromServer());
     }
 
     private void setupViewModel() {
@@ -140,18 +125,18 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
                 showShimmer();
             } else {
                 hideShimmer();
-                swipeRefresh.setRefreshing(false);
+                binding.swipeRefresh.setRefreshing(false);
             }
         });
 
         // Offline banner
         viewModel.isOffline.observe(this, offline ->
-                offlineBanner.setVisibility(offline ? View.VISIBLE : View.GONE));
+                binding.offlineBanner.setVisibility(offline ? View.VISIBLE : View.GONE));
 
         // Toast messages
         viewModel.toastMessage.observe(this, msg -> {
             if (msg != null && !msg.isEmpty()) {
-                Snackbar.make(recyclerView, msg, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(binding.recyclerNotes, msg, Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -181,23 +166,23 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
 
     private void submitNotes(List<NoteEntity> notes) {
         boolean isEmpty = notes == null || notes.isEmpty();
-        emptyState.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-        recyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        binding.emptyState.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+        binding.recyclerNotes.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         adapter.submitList(notes != null ? notes : new ArrayList<>());
     }
 
     // ─── Shimmer ─────────────────────────────────────────────────────────────
 
     private void showShimmer() {
-        shimmerLayout.setVisibility(View.VISIBLE);
-        shimmerLayout.startShimmer();
-        recyclerView.setVisibility(View.GONE);
+        binding.shimmerLayout.setVisibility(View.VISIBLE);
+        binding.shimmerLayout.startShimmer();
+        binding.recyclerNotes.setVisibility(View.GONE);
     }
 
     private void hideShimmer() {
-        shimmerLayout.stopShimmer();
-        shimmerLayout.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
+        binding.shimmerLayout.stopShimmer();
+        binding.shimmerLayout.setVisibility(View.GONE);
+        binding.recyclerNotes.setVisibility(View.VISIBLE);
     }
 
     // ─── NoteClickListener ────────────────────────────────────────────────────
@@ -274,11 +259,11 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
         int id = item.getItemId();
         if (id == R.id.action_notifications) {
             Snackbar.make(
-                    recyclerView, "Notifications coming soon", Snackbar.LENGTH_SHORT).show();
+                    binding.recyclerNotes, "Notifications coming soon", Snackbar.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.action_profile) {
             Snackbar.make(
-                    recyclerView, "Profile coming soon", Snackbar.LENGTH_SHORT).show();
+                    binding.recyclerNotes, "Profile coming soon", Snackbar.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

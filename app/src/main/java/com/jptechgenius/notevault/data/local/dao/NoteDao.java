@@ -21,6 +21,9 @@ public interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertNote(NoteEntity note);
 
+    @Query("SELECT * FROM notes WHERE id = :noteId")
+    NoteEntity getNoteByIdSync(int noteId);
+
     @Delete
     void deleteNote(NoteEntity note);
 

@@ -1,34 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand -->
-    <color name="colorPrimary">#6C63FF</color>
-    <color name="colorPrimaryDark">#4B44CC</color>
-    <color name="colorAccent">#FF6584</color>
+    <!-- Brand - Premium Indigo -->
+    <color name="colorPrimary">#4F46E5</color>
+    <color name="colorPrimaryDark">#3730A3</color>
+    <color name="colorAccent">#F59E0B</color>
 
     <!-- Backgrounds -->
-    <color name="colorBackground">#F5F6FA</color>
+    <color name="colorBackground">#FBFBFE</color>
     <color name="colorSurface">#FFFFFF</color>
+    <color name="colorSurfaceVariant">#F1F5F9</color>
 
     <!-- Text -->
-    <color name="colorTextPrimary">#2D2D3A</color>
-    <color name="colorTextSecondary">#9E9EAE</color>
+    <color name="colorTextPrimary">#1E293B</color>
+    <color name="colorTextSecondary">#64748B</color>
+    <color name="colorTextMuted">#94A3B8</color>
 
     <!-- Semantic -->
-    <color name="colorSuccess">#4CAF50</color>
-    <color name="colorError">#F44336</color>
-    <color name="colorWarning">#FF9800</color>
+    <color name="colorSuccess">#10B981</color>
+    <color name="colorError">#EF4444</color>
+    <color name="colorWarning">#F59E0B</color>
 
     <!-- Card states -->
-    <color name="colorDownloaded">#E8F5E9</color>
-    <color name="cardShadow">#1A000000</color>
+    <color name="colorDownloaded">#F0FDF4</color>
+    <color name="cardShadow">#0F000000</color>
 
     <!-- Misc -->
-    <color name="colorDivider">#E0E0E0</color>
+    <color name="colorDivider">#E2E8F0</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorTransparent">#00000000</color>
 
     <!-- Subject chip background -->
-    <color name="colorChipBackground">#EDE9FF</color>
-    <color name="colorChipText">#6C63FF</color>
+    <color name="colorChipBackground">#EEF2FF</color>
+    <color name="colorChipText">#4F46E5</color>
+
+    <!-- Shimmer -->
+    <color name="shimmer_base">#E2E8F0</color>
+    <color name="shimmer_highlight">#F8FAFC</color>
+
+    <!-- Gradients -->
+    <color name="gradient_start">#4F46E5</color>
+    <color name="gradient_end">#7C3AED</color>
 </resources>

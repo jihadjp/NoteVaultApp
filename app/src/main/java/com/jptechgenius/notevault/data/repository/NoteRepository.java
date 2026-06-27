@@ -65,7 +65,18 @@ public class NoteRepository {
                     // Cache to Room on a background thread
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         for (NoteResponse n : response.body()) {
-                            noteDao.insertNote(mapToEntity(n));
+                            NoteEntity entity = mapToEntity(n);
+                            // Preserve local state if already exists
+                            NoteEntity existing = noteDao.getNoteByIdSync(entity.getId());
+                            if (existing != null) {
+                                entity.setDownloaded(existing.isDownloaded());
+                                entity.setLocalFilePath(existing.getLocalFilePath());
+                                // Also preserve savedAt if we want to keep order
+                                entity.setSavedAt(existing.getSavedAt());
+                            } else {
+                                entity.setSavedAt(System.currentTimeMillis());
+                            }
+                            noteDao.insertNote(entity);
                         }
                     });
                 } else {

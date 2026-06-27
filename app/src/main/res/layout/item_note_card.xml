@@ -1,221 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardNote"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_margin"
-    app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="@dimen/card_elevation"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/colorDivider"
     app:cardBackgroundColor="@color/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:padding="16dp">
 
-        <!-- Downloaded badge (top-right overlay) -->
+        <!-- Thumbnail Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvThumbnail"
+            android:layout_width="64dp"
+            android:layout_height="84dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_pdf_placeholder"
+                android:contentDescription="@string/cd_pdf_thumbnail"
+                android:background="@color/colorSurfaceVariant" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Badge (Top of Thumbnail) -->
         <TextView
             android:id="@+id/tvDownloadedBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_downloaded_badge"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:text="Downloaded ✓"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="1dp"
+            android:text="Saved"
             android:textColor="@color/colorWhite"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="-12dp"
-            android:layout_marginTop="-12dp" />
+            app:layout_constraintEnd_toEndOf="@id/cvThumbnail"
+            app:layout_constraintTop_toTopOf="@id/cvThumbnail"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp" />
 
-        <!-- Thumbnail -->
-        <ImageView
-            android:id="@+id/ivThumbnail"
-            android:layout_width="@dimen/thumbnail_width"
-            android:layout_height="@dimen/thumbnail_height"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/cd_pdf_thumbnail"
-            android:background="@color/colorChipBackground"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Title -->
+        <!-- Title & Info -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
+            android:lineSpacingExtra="2dp"
             app:layout_constraintEnd_toStartOf="@id/btnMore"
-            app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+            app:layout_constraintStart_toEndOf="@id/cvThumbnail"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Subject chip -->
         <TextView
             android:id="@+id/tvSubject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/bg_subject_chip"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
             android:textColor="@color/colorChipText"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+            app:layout_constraintStart_toEndOf="@id/cvThumbnail"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <!-- Uploader -->
-        <TextView
-            android:id="@+id/tvUploader"
+        <LinearLayout
+            android:id="@+id/llMeta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/colorTextSecondary"
-            android:textSize="11sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@id/cvThumbnail"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvSubject"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tvSubject">
 
-        <!-- File size -->
-        <TextView
-            android:id="@+id/tvFileSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:drawablePadding="4dp"
-            android:textColor="@color/colorTextSecondary"
-            android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@id/ivThumbnail"
-            app:layout_constraintTop_toBottomOf="@id/tvSubject" />
+            <TextView
+                android:id="@+id/tvUploader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="11sp"
+                android:maxLines="1"
+                android:ellipsize="end" />
 
-        <!-- Separator dot -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:text=" • "
-            android:textColor="@color/colorTextSecondary"
-            android:textSize="11sp"
-            android:id="@+id/tvDot"
-            app:layout_constraintStart_toEndOf="@id/tvFileSize"
-            app:layout_constraintTop_toBottomOf="@id/tvSubject" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" • "
+                android:textColor="@color/colorTextMuted" />
 
-        <!-- Download count -->
-        <TextView
-            android:id="@+id/tvDownloadCount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/colorTextSecondary"
-            android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvDot"
-            app:layout_constraintTop_toBottomOf="@id/tvSubject" />
+            <TextView
+                android:id="@+id/tvFileSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="11sp" />
 
-        <!-- More button -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" • "
+                android:textColor="@color/colorTextMuted" />
+
+            <TextView
+                android:id="@+id/tvDownloadCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- More Button -->
         <ImageButton
             android:id="@+id/btnMore"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_more_options"
             android:src="@android:drawable/ic_menu_more"
-            android:tint="@color/colorTextSecondary"
+            android:contentDescription="@string/cd_more_options"
+            app:tint="@color/colorTextMuted"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="-4dp" />
 
-        <!-- Divider -->
+        <!-- Actions Divider -->
         <View
-            android:id="@+id/divider"
+            android:id="@+id/vDivider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:background="@color/colorDivider"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivThumbnail" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvThumbnail" />
 
-        <!-- Bottom action row -->
-        <!-- Download progress bar (while downloading) -->
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/vDivider">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnViewPdf"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="Read Note"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp"
+                app:icon="@android:drawable/ic_menu_view"
+                app:iconSize="18dp"
+                app:iconPadding="8dp"
+                app:iconTint="@color/colorPrimary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDownload"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:text="Download"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                app:backgroundTint="@color/colorPrimary"
+                app:cornerRadius="12dp"
+                app:icon="@android:drawable/stat_sys_download_done"
+                app:iconSize="18dp"
+                app:iconPadding="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteFile"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:text="Remove"
+                android:textAllCaps="false"
+                android:textColor="@color/colorError"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconSize="18dp"
+                app:iconPadding="8dp"
+                app:iconTint="@color/colorError" />
+
+        </LinearLayout>
+
+        <!-- Progress (Overlaid on bottom) -->
         <ProgressBar
             android:id="@+id/progressDownload"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_height="3dp"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorPrimary"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
-
-        <!-- View PDF button -->
-        <Button
-            android:id="@+id/btnViewPdf"
-            style="@style/Widget.NoteVaultDIU.Button.Outlined"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="6dp"
-            android:text="👁 View PDF"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/btnDownload"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
-
-        <!-- Download button -->
-        <Button
-            android:id="@+id/btnDownload"
-            style="@style/Widget.NoteVaultDIU.Button"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:text="⬇ Download"
-            android:textSize="12sp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnViewPdf"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
-
-        <!-- Delete file button (shown when downloaded) -->
-        <Button
-            android:id="@+id/btnDeleteFile"
-            style="@style/Widget.NoteVaultDIU.Button.Danger"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:text="🗑 Delete File"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnViewPdf"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
+            android:layout_marginBottom="-16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -25,6 +25,7 @@
     <string name="btn_info">Info</string>
 
     <!-- Info bottom sheet -->
+    <string name="info_header">Document Details</string>
     <string name="info_title">Title</string>
     <string name="info_subject">Subject</string>
     <string name="info_uploaded_by">Uploaded By</string>
@@ -32,6 +33,7 @@
     <string name="info_size">File Size</string>
     <string name="info_downloads">Downloads</string>
     <string name="info_server_url">Server URL</string>
+    <string name="info_storage_header">Storage Details</string>
     <string name="info_local_path">Local Path</string>
 
     <!-- Dialogs -->
