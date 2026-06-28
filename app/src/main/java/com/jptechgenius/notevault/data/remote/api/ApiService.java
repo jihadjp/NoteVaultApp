@@ -1,6 +1,7 @@
 package com.jptechgenius.notevault.data.remote.api;
 
 import com.jptechgenius.notevault.data.remote.model.NoteResponse;
+import com.jptechgenius.notevault.data.remote.model.QuestionResponse;
 
 import java.util.List;
 
@@ -37,4 +38,15 @@ public interface ApiService {
      */
     @GET("api/notes")
     Call<List<NoteResponse>> getNotesBySubject(@Query("subject") String subject);
+
+    /**
+     * Fetch questions with advanced filtering.
+     */
+    @GET("api/questions")
+    Call<List<QuestionResponse>> getQuestions(
+            @Query("department") String department,
+            @Query("course") String course,
+            @Query("semester") String semester,
+            @Query("type") String type
+    );
 }

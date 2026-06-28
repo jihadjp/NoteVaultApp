@@ -23,6 +23,7 @@ public final class Constants {
     // Intent extras
     public static final String EXTRA_NOTE_ID = "extra_note_id";
     public static final String EXTRA_NOTE_TITLE = "extra_note_title";
+    public static final String EXTRA_PDF_URL = "extra_pdf_url";
 
     // Notification
     public static final String DOWNLOAD_CHANNEL_ID = "download_channel";

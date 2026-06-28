@@ -145,6 +145,25 @@
                     </LinearLayout>
                 </FrameLayout>
 
+                <!-- Dynamic Filter Section -->
+                <FrameLayout
+                    android:id="@+id/filterContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <include
+                        android:id="@+id/layoutFilterNotes"
+                        layout="@layout/layout_filter_notes"
+                        android:visibility="visible" />
+
+                    <include
+                        android:id="@+id/layoutFilterQuestions"
+                        layout="@layout/layout_filter_questions"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
             </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

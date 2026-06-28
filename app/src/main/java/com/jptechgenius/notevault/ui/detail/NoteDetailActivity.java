@@ -42,6 +42,7 @@ public class NoteDetailActivity extends AppCompatActivity {
 
         noteId = getIntent().getIntExtra(Constants.EXTRA_NOTE_ID, -1);
         String noteTitle = getIntent().getStringExtra(Constants.EXTRA_NOTE_TITLE);
+        String directPdfUrl = getIntent().getStringExtra(Constants.EXTRA_PDF_URL);
 
         // Toolbar
         setSupportActionBar(binding.toolbar);
@@ -52,6 +53,11 @@ public class NoteDetailActivity extends AppCompatActivity {
 
         initViews();
         setupViewModel();
+
+        // If it's a direct URL (like a Question), load it directly
+        if (directPdfUrl != null && !directPdfUrl.isEmpty()) {
+            downloadAndDisplayPdf(directPdfUrl);
+        }
     }
 
     private void initViews() {
@@ -104,6 +110,14 @@ public class NoteDetailActivity extends AppCompatActivity {
     }
 
     private void updateActionBar(NoteEntity note) {
+        if (note == null) {
+            // For direct URLs (Questions), just hide some buttons
+            binding.btnDownload.setVisibility(View.GONE);
+            binding.btnDeleteFile.setVisibility(View.GONE);
+            binding.btnShare.setVisibility(View.GONE);
+            return;
+        }
+
         if (getSupportActionBar() != null && note.getTitle() != null) {
             getSupportActionBar().setTitle(note.getTitle());
         }

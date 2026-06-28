@@ -38,6 +38,13 @@ if ($path === 'api/notes/search' && $requestMethod === 'GET') {
     exit;
 }
 
+// GET /api/questions
+if ($path === 'api/questions' && $requestMethod === 'GET') {
+    require_once __DIR__ . '/api/questions/index.php';
+    handleQuestions();
+    exit;
+}
+
 // /api/notes বা /api/notes/{id} বা /api/notes/{id}/download
 if (preg_match('#^api/notes(/(\d+)(/(\w+))?)?$#', $path, $matches)) {
     $id     = $matches[2] ?? null;       // null = সব notes
