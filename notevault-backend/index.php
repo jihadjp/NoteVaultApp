@@ -1,39 +1,73 @@
 <?php
 // ─────────────────────────────────────────────────────────────
-// index.php — Front Controller / Router
-// সব request এখানে আসে, তারপর সঠিক handler এ যায়।
-//
-// Routes:
-//   GET  /api/notes              → সব notes
-//   GET  /api/notes/search?q=    → search
-//   GET  /api/notes/{id}         → একটা note
-//   POST /api/notes              → নতুন note তৈরি
-//   POST /api/notes/{id}/download → download count বাড়াও
-//   DELETE /api/notes/{id}       → note delete
+// index.php — Front Controller / Router for NoteVault Academic Platform
+// Supports both legacy /api/notes routes and versioned /api/v1/* routes.
 // ─────────────────────────────────────────────────────────────
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
+$appDebug = getenv('APP_DEBUG') === 'true';
+ini_set('display_errors', $appDebug ? '1' : '0');
+ini_set('display_startup_errors', $appDebug ? '1' : '0');
+error_reporting($appDebug ? E_ALL : 0);
+
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/config/helpers.php';
 
-// CORS + JSON headers
 setCorsHeaders();
 
-// URL parse করো
-$requestUri    = $_SERVER['REQUEST_URI'];
-$requestMethod = $_SERVER['REQUEST_METHOD'];
+$requestUri    = $_SERVER['REQUEST_URI'] ?? '/';
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+$path          = trim(strtolower(parse_url($requestUri, PHP_URL_PATH) ?: ''), '/');
 
-// Query string সরাও: /api/notes?q=test → /api/notes
-$path = parse_url($requestUri, PHP_URL_PATH);
+// ─── API v1 Academic Hierarchy & Moderation Routes ──────────────────────────
 
-// Leading slash সরাও, lowercase করো
-$path = trim(strtolower($path), '/');
+if ($path === 'api/v1/universities') {
+    require_once __DIR__ . '/api/v1/hierarchy.php';
+    handleUniversities();
+    exit;
+}
 
-// ─── Routing ──────────────────────────────────────────────────
+if ($path === 'api/v1/departments') {
+    require_once __DIR__ . '/api/v1/hierarchy.php';
+    handleDepartments();
+    exit;
+}
 
-// GET /api/notes/search?q=keyword
-if ($path === 'api/notes/search' && $requestMethod === 'GET') {
+if ($path === 'api/v1/courses') {
+    require_once __DIR__ . '/api/v1/hierarchy.php';
+    handleCourses();
+    exit;
+}
+
+if ($path === 'api/v1/moderation/queue') {
+    require_once __DIR__ . '/api/v1/moderation.php';
+    handleModerationQueue();
+    exit;
+}
+
+if (preg_match('#^api/v1/moderation/(\d+)/decision$#', $path, $m)) {
+    require_once __DIR__ . '/api/v1/moderation.php';
+    handleModerationDecision((int)$m[1]);
+    exit;
+}
+
+// /api/v1/resources/{id}/reviews or /api/v1/resources/{id}/reports
+if (preg_match('#^api/v1/resources/(\d+)/(reviews|reports)$#', $path, $m)) {
+    $resId  = (int)$m[1];
+    $subAct = $m[2];
+    if ($subAct === 'reviews') {
+        require_once __DIR__ . '/api/v1/reviews.php';
+        handleReviews($resId);
+        exit;
+    }
+    if ($subAct === 'reports') {
+        require_once __DIR__ . '/api/v1/reports.php';
+        handleReports($resId);
+        exit;
+    }
+}
+
+// Normalize /api/v1/search to /api/notes/search
+if (($path === 'api/notes/search' || $path === 'api/v1/search') && $requestMethod === 'GET') {
     require_once __DIR__ . '/api/notes/search.php';
     exit;
 }
@@ -45,46 +79,40 @@ if ($path === 'api/questions' && $requestMethod === 'GET') {
     exit;
 }
 
-// /api/notes বা /api/notes/{id} বা /api/notes/{id}/download
-if (preg_match('#^api/notes(/(\d+)(/(\w+))?)?$#', $path, $matches)) {
-    $id     = $matches[2] ?? null;       // null = সব notes
-    $action = $matches[4] ?? null;       // e.g. "download"
+// /api/notes or /api/v1/resources
+if (preg_match('#^api/(notes|v1/resources)(/(\d+)(/(\w+))?)?$#', $path, $matches)) {
+    $id     = $matches[3] ?? null;
+    $action = $matches[5] ?? null;
 
     if ($id && $action === 'download' && $requestMethod === 'POST') {
-        // POST /api/notes/{id}/download
         require_once __DIR__ . '/api/notes/download.php';
         handleDownload((int)$id);
         exit;
     }
 
     if ($id && $requestMethod === 'DELETE') {
-        // DELETE /api/notes/{id}
         require_once __DIR__ . '/api/notes/delete.php';
         handleDelete((int)$id);
         exit;
     }
 
     if ($id && $requestMethod === 'GET') {
-        // GET /api/notes/{id}
         require_once __DIR__ . '/api/notes/show.php';
         handleShow((int)$id);
         exit;
     }
 
     if (!$id && $requestMethod === 'GET') {
-        // GET /api/notes
         require_once __DIR__ . '/api/notes/index.php';
         handleIndex();
         exit;
     }
 
     if (!$id && $requestMethod === 'POST') {
-        // POST /api/notes  (upload)
         require_once __DIR__ . '/api/notes/store.php';
         handleStore();
         exit;
     }
 }
 
-// কোনো route match না হলে
 sendError('Endpoint not found.', 404);

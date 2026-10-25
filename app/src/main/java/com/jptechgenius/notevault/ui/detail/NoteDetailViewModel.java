@@ -18,14 +18,13 @@ import com.jptechgenius.notevault.utils.DownloadCompleteListener;
 public class NoteDetailViewModel extends AndroidViewModel {
 
     private final NoteRepository repository;
+    public final MutableLiveData<NoteEntity> currentNote = new MutableLiveData<>();
     private LiveData<NoteEntity> dbNoteLiveData;
     private final Observer<NoteEntity> dbNoteObserver = note -> {
         if (note != null) {
             currentNote.postValue(note);
         }
     };
-
-    public final MutableLiveData<NoteEntity> currentNote = new MutableLiveData<>();
     public final MutableLiveData<Boolean> isDownloading = new MutableLiveData<>(false);
     public final MutableLiveData<Boolean> isPdfLoading = new MutableLiveData<>(true);
     public final MutableLiveData<String> toastMessage = new MutableLiveData<>();

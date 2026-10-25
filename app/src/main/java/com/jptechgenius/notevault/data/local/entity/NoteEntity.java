@@ -123,11 +123,11 @@ public class NoteEntity {
         if (combined.contains("slide") || combined.contains("ppt") || combined.contains("presentation")) {
             return "Lecture Slides";
         }
-        if (combined.contains("question") || combined.contains("midterm") || combined.contains("final exam")) {
-            return "Question Papers";
-        }
         if (combined.contains("suggestion") || combined.contains("shortlist")) {
             return "Suggestions";
+        }
+        if (combined.contains("question") || combined.contains("midterm") || combined.contains("final exam")) {
+            return "Question Papers";
         }
         if (combined.contains("lab") || combined.contains("manual") || combined.contains("experiment")) {
             return "Lab Manuals";

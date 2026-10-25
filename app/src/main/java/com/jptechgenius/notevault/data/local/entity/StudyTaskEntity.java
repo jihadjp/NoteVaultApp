@@ -1,6 +1,7 @@
 package com.jptechgenius.notevault.data.local.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.concurrent.TimeUnit;
@@ -25,6 +26,7 @@ public class StudyTaskEntity {
 
     public StudyTaskEntity() {}
 
+    @Ignore
     public StudyTaskEntity(String title, String courseCode, String taskType,
                            long targetDateMillis, String notes, boolean isCompleted, long createdAt) {
         this.title = title;

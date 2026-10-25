@@ -1,30 +1,40 @@
 <?php
 // ─────────────────────────────────────────────────────────────
 // api/notes/index.php
-// GET /api/notes — returns all approved notes in diunotes format
+// GET /api/notes and GET /api/v1/resources
+// Returns approved academic resources in NoteResponse format.
 // ─────────────────────────────────────────────────────────────
 
 function handleIndex(): void {
     $db = getDB();
 
-    // Optional filters
-    $courseCode = $_GET['courseCode'] ?? null;
-    $limit      = min((int)($_GET['limit']  ?? 50), 100);
-    $offset     = max((int)($_GET['offset'] ?? 0),  0);
+    $courseCode = trim($_GET['courseCode'] ?? ($_GET['course_code'] ?? ''));
+    $department = trim($_GET['department'] ?? ($_GET['department_name'] ?? ''));
+    $category   = trim($_GET['type']       ?? ($_GET['category'] ?? ''));
+    $page       = max((int)($_GET['page']   ?? 1), 1);
+    $limit      = min(max((int)($_GET['limit'] ?? 50), 1), 100);
+    $offset     = isset($_GET['offset']) ? max((int)$_GET['offset'], 0) : (($page - 1) * $limit);
 
-    // Base query - only show APPROVED notes
+    // Public listing strictly returns APPROVED resources
     $sql    = "SELECT * FROM notes WHERE status = 'APPROVED'";
     $params = [];
 
-    if ($courseCode) {
+    if ($courseCode !== '') {
         $sql .= " AND course_code = :courseCode";
         $params[':courseCode'] = $courseCode;
+    }
+    if ($department !== '') {
+        $sql .= " AND department_name = :department";
+        $params[':department'] = $department;
+    }
+    if ($category !== '') {
+        $sql .= " AND resource_category = :category";
+        $params[':category'] = $category;
     }
 
     $sql .= " ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
 
     $stmt = $db->prepare($sql);
-
     foreach ($params as $key => $value) {
         $stmt->bindValue($key, $value);
     }
@@ -35,12 +45,12 @@ function handleIndex(): void {
     $notes = $stmt->fetchAll();
 
     $notes = array_map('formatNoteForResponse', $notes);
-
     sendSuccess($notes);
 }
 
 /**
- * Formats database row to match the NoteResponse POJO (camelCase).
+ * Formats a database row to match the Android NoteResponse POJO (camelCase).
+ * Maintains full backward compatibility with legacy clients and adds v1 academic hierarchy fields.
  */
 function formatNoteForResponse(array $row): array {
     return [
@@ -53,18 +63,26 @@ function formatNoteForResponse(array $row): array {
         'courseName'            => $row['course_name'] ?? '',
         'departmentId'          => (int) ($row['department_id'] ?? 0),
         'departmentName'        => $row['department_name'] ?? '',
-        'userName'              => $row['user_name'] ?? 'Anonymous',
+        'universityName'        => $row['university_name'] ?? 'Daffodil International University',
+        'resourceCategory'      => $row['resource_category'] ?? 'Lecture Notes',
+        'semesterName'          => $row['semester_name'] ?? '',
+        'batchName'             => $row['batch_name'] ?? '',
+        'userName'              => $row['user_name'] ?? 'Contributor',
         'createdAt'             => $row['created_at'],
         'updatedAt'             => $row['updated_at'],
         'userId'                => (int) ($row['user_id'] ?? 0),
-        'likeCount'             => (int) $row['like_count'],
-        'dislikeCount'          => (int) $row['dislike_count'],
+        'likeCount'             => (int) ($row['like_count'] ?? 0),
+        'dislikeCount'          => (int) ($row['dislike_count'] ?? 0),
         'likedByCurrentUser'    => false,
         'dislikedByCurrentUser' => false,
         'savedByCurrentUser'    => false,
-        'viewCount'             => (int) $row['view_count'],
-        'status'                => $row['status'],
-        'approvedAt'            => $row['approved_at'],
+        'viewCount'             => (int) ($row['view_count'] ?? 0),
+        'fileSize'              => (int) ($row['file_size'] ?? 0),
+        'status'                => $row['status'] ?? 'APPROVED',
+        'isVerified'            => (bool) ($row['is_verified'] ?? ($row['status'] === 'APPROVED')),
+        'ratingAvg'             => (float) ($row['rating_avg'] ?? 0.0),
+        'ratingCount'           => (int) ($row['rating_count'] ?? 0),
+        'approvedAt'            => $row['approved_at'] ?? null,
         'thumbnail_url'         => $row['thumbnail_url'] ?? ''
     ];
 }

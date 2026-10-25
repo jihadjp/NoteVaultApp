@@ -1,17 +1,18 @@
 <?php
 // ─────────────────────────────────────────────────────────────
-// config/database.php — MySQL connection config
+// config/database.php — Secure MySQL PDO Connection
+// Reads credentials from environment variables (.env / server config)
+// Never exposes internal PDO exception messages in production.
 // ─────────────────────────────────────────────────────────────
 
-define('DB_HOST',     'localhost');
-define('DB_NAME',     'jihadjp1_notevault_diu');
-define('DB_USER',     'jihadjp1_notevault_diu');        // তোমার MySQL username
-define('DB_PASS',     'notevault_diu#jihadjp');            // তোমার MySQL password
-define('DB_CHARSET',  'utf8mb4');
+define('DB_HOST',    getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME',    getenv('DB_NAME') ?: 'notevault_diu');
+define('DB_USER',    getenv('DB_USER') ?: 'root');
+define('DB_PASS',    getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
+define('DB_CHARSET', 'utf8mb4');
 
 /**
- * PDO connection — singleton pattern।
- * একবার connect হলে বারবার নতুন connection হয় না।
+ * PDO singleton connection with prepared statements enforced.
  */
 function getDB(): PDO {
     static $pdo = null;
@@ -30,13 +31,16 @@ function getDB(): PDO {
         try {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
+            error_log('[NoteVault DB Error] ' . $e->getMessage());
             http_response_code(500);
-            echo json_encode([
+            $response = [
                 'success' => false,
-                'message' => 'Database connection failed.',
-                // Production এ এই line টা remove করো:
-                'debug'   => $e->getMessage()
-            ]);
+                'message' => 'Database service unavailable.'
+            ];
+            if (getenv('APP_DEBUG') === 'true') {
+                $response['debug'] = $e->getMessage();
+            }
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
             exit;
         }
     }

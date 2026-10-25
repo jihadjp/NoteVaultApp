@@ -1,0 +1,11 @@
+{
+  "name": "notevault-diu-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NoteVault DIU — Academic Resource & Offline Study Platform (Android + Backend + Web Preview)",
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "start": "node dev-server.mjs",
+    "build": "bash ./gradlew assembleDebug"
+  }
+}

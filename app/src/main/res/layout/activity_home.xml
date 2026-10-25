@@ -23,73 +23,112 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="24dp">
+                android:paddingBottom="16dp">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="NoteVault DIU"
+                    app:title="@string/app_name"
                     app:titleTextColor="@color/colorTextPrimary"
                     app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
 
-                <!-- Profile Header -->
+                <!-- Academic Dashboard Header -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="24dp"
-                    android:paddingTop="12dp">
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="4dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_alignParentStart="true">
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/cardProfileAvatar"
+                        android:layout_marginEnd="12dp">
 
                         <TextView
+                            android:id="@+id/tvGreetingSubtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Good Morning, 🌅"
+                            android:text="@string/greeting_subtitle"
                             android:textColor="@color/colorTextSecondary"
-                            android:textSize="14sp" />
+                            android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/tvGreetingName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vault Member"
+                            android:text="@string/default_member_title"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
+                            android:textSize="22sp"
                             android:textStyle="bold"
                             android:letterSpacing="-0.02" />
+
+                        <!-- University & Department Context Bar -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvAcademicContext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill_subject_gradient"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp"
+                                android:text="DIU • All Departments • SWE-43"
+                                android:textColor="@color/colorChipText"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/btnChangeContext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:paddingVertical="4dp"
+                                android:paddingHorizontal="6dp"
+                                android:text="@string/academic_context_change"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
+                        android:id="@+id/cardProfileAvatar"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="8dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="4dp"
                         app:cardBackgroundColor="@color/gradient_start"
                         app:strokeWidth="0dp">
                         <TextView
+                            android:id="@+id/tvProfileInitials"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="VM"
+                            android:text="DS"
                             android:textColor="@color/colorWhite"
                             android:textStyle="bold"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
                     </com.google.android.material.card.MaterialCardView>
                 </RelativeLayout>
 
-                <!-- Offline Banner -->
+                <!-- Offline & Sync Status Banner -->
                 <TextView
                     android:id="@+id/offlineBanner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginHorizontal="20dp"
                     android:background="@drawable/bg_glass_badge_success"
                     android:gravity="center"
                     android:padding="10dp"
@@ -99,12 +138,12 @@
                     android:textStyle="bold"
                     android:visibility="gone" />
 
-                <!-- Search Card -->
+                <!-- Smart Search Card -->
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_height="52dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/bg_glass_search">
 
                     <LinearLayout
@@ -112,12 +151,13 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="14dp">
 
                         <ImageView
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@android:drawable/ic_menu_search"
+                            android:contentDescription="@string/search_hint"
                             app:tint="@color/colorTextSecondary" />
 
                         <EditText
@@ -126,31 +166,246 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:hint="Find your notes..."
+                            android:hint="@string/search_hint"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:paddingStart="12dp"
+                            android:paddingStart="10dp"
                             android:textColor="@color/colorTextPrimary"
                             android:textColorHint="@color/colorTextMuted"
-                            android:textSize="15sp"
+                            android:textSize="14sp"
                             tools:ignore="RtlSymmetry" />
 
-                        <ImageView
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:src="@android:drawable/ic_btn_speak_now"
+                        <ImageButton
+                            android:id="@+id/btnClearSearch"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@android:drawable/ic_menu_close_clear_cancel"
+                            android:contentDescription="@string/clear_search_history"
+                            android:visibility="gone"
                             app:tint="@color/colorTextSecondary" />
 
                     </LinearLayout>
                 </FrameLayout>
+
+                <!-- Quick Resource Category Filter Strip -->
+                <HorizontalScrollView
+                    android:id="@+id/scrollCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="20dp"
+                    android:scrollbars="none">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupCategories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleLine="true"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatAll"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/cat_all" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatSyllabus"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat_syllabus" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatLectureNotes"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat_lecture_notes" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatSlides"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat_slides" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatQuestions"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat_questions" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatSuggestions"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat_suggestions" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatLab"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat_lab" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCatAssignments"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat_assignments" />
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+
+                <!-- Continue Studying Card (Shown only when local reading progress exists) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardContinueStudying"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/colorPrimary"
+                    app:cardBackgroundColor="@color/colorSurface">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/continue_studying_title"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvContinueTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvContinueSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnResumeStudying"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/btn_view_pdf"
+                            android:textAllCaps="false"
+                            android:textSize="12sp"
+                            app:cornerRadius="10dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Study Planner, Exam Countdown & My Courses Bar -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStudyWorkspace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/colorDivider"
+                    app:cardBackgroundColor="@color/colorSurfaceVariant">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/exam_countdown_title"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvExamCountdownSummary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/exam_countdown_empty"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnAddStudyTask"
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:text="@string/btn_add_study_task"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnManageMyCourses"
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/btn_manage_my_courses"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Dynamic Filter Section -->
                 <FrameLayout
                     android:id="@+id/filterContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="6dp">
 
                     <include
                         android:id="@+id/layoutFilterNotes"
@@ -168,29 +423,29 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <!-- Segmented Tab Bar -->
+        <!-- Primary 5-Destination Navigation Bar (Home, Explore, Downloads, Bookmarks, Profile) -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="18dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:strokeWidth="1.5dp"
+            app:strokeWidth="1dp"
             app:strokeColor="@color/colorDivider"
             app:cardBackgroundColor="@color/colorSurfaceVariant">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="48dp"
                 android:background="@color/colorTransparent"
                 app:tabGravity="fill"
                 app:tabIndicatorGravity="stretch"
                 app:tabIndicator="@drawable/bg_tab_indicator_premium"
                 app:tabIndicatorColor="@color/colorSurface"
                 app:tabIndicatorFullWidth="true"
-                app:tabMode="fixed"
+                app:tabMode="scrollable"
                 app:tabRippleColor="@color/colorTransparent"
                 app:tabSelectedTextColor="@color/colorPrimary"
                 app:tabTextColor="@color/colorTextSecondary" />
@@ -208,7 +463,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Shimmer -->
+            <!-- Shimmer Loading Skeleton -->
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerLayout"
                 android:layout_width="match_parent"
@@ -225,7 +480,7 @@
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <!-- Recycler -->
+            <!-- Resource / Question Recycler -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerNotes"
                 android:layout_width="match_parent"
@@ -240,30 +495,34 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="48dp"
+                android:padding="40dp"
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ic_pdf_placeholder"
-                    android:alpha="0.2" />
+                    android:contentDescription="@string/cd_pdf_thumbnail"
+                    android:alpha="0.25" />
 
                 <TextView
+                    android:id="@+id/tvEmptyTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="No materials found"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="@string/empty_state_title"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvEmptySubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Refresh to check for new uploads"
+                    android:text="@string/empty_state_subtitle"
                     android:textColor="@color/colorTextSecondary"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -272,20 +531,20 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <!-- Premium FAB -->
+    <!-- Student Resource Contribution FAB -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
-        android:text="New Note"
+        android:layout_margin="20dp"
+        android:text="@string/fab_contribute"
         android:textColor="@color/colorWhite"
         android:textAllCaps="false"
         android:textStyle="bold"
         app:icon="@android:drawable/ic_input_add"
         app:iconTint="@color/colorWhite"
-        android:backgroundTint="@color/gradient_start"
-        app:elevation="12dp" />
+        android:backgroundTint="@color/colorPrimary"
+        app:elevation="8dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

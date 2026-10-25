@@ -2,6 +2,7 @@ package com.jptechgenius.notevault.data.local.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
@@ -23,6 +24,7 @@ public class MyCourseEntity {
 
     public MyCourseEntity() {}
 
+    @Ignore
     public MyCourseEntity(@NonNull String courseCode, String courseTitle, String departmentName,
                           String universityName, String semesterName, float creditHours, long addedAt) {
         this.courseCode = courseCode;
