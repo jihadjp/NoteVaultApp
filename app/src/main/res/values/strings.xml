@@ -1,52 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NoteVault DIU</string>
-    <string name="app_tagline">Your notes, anywhere</string>
+    <string name="app_tagline">Academic Resource &amp; Study Platform</string>
 
-    <!-- Home -->
-    <string name="search_hint">Search notes…</string>
-    <string name="tab_all_notes">All Notes</string>
-    <string name="tab_downloaded">Downloaded</string>
-    <string name="offline_banner">⚠ You\'re offline. Showing cached notes.</string>
-    <string name="empty_state_title">No notes found</string>
-    <string name="empty_state_subtitle">Pull down to refresh</string>
+    <!-- Navigation Destinations -->
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_downloads">Downloads</string>
+    <string name="nav_bookmarks">Bookmarks</string>
+    <string name="nav_profile">Profile</string>
 
-    <!-- Note card -->
-    <string name="btn_view_pdf">View PDF</string>
-    <string name="btn_download">Download</string>
-    <string name="btn_delete_file">Delete File</string>
-    <string name="label_downloaded">Downloaded ✓</string>
+    <!-- Home & Academic Context -->
+    <string name="greeting_subtitle">Academic Resource Platform</string>
+    <string name="default_member_title">DIU Scholar</string>
+    <string name="academic_context_change">Change Context</string>
+    <string name="search_hint">Search courses, codes, notes, or uploaders…</string>
+    <string name="clear_search_history">Clear Recent Searches</string>
+    <string name="tab_all_notes">Home</string>
+    <string name="tab_questions">Explore</string>
+    <string name="tab_downloaded">Downloads</string>
+    <string name="tab_bookmarks">Bookmarks</string>
+    <string name="tab_profile">Profile</string>
+    <string name="offline_banner">⚠ Offline Mode — Showing cached library &amp; local PDFs</string>
+    <string name="empty_state_title">No academic resources found</string>
+    <string name="empty_state_subtitle">Pull down to sync or adjust your department &amp; course filters</string>
+    <string name="fab_contribute">Contribute PDF</string>
 
-    <!-- Detail -->
-    <string name="loading_pdf">Loading PDF…</string>
-    <string name="error_load_pdf">Could not load PDF. Check your connection.</string>
+    <!-- Continue Studying & Exam Countdown -->
+    <string name="continue_studying_title">Continue Studying</string>
+    <string name="continue_studying_resume">Resume Page %1$d of %2$d</string>
+    <string name="exam_countdown_title">Study Planner &amp; Exam Countdown</string>
+    <string name="exam_countdown_empty">No upcoming exams configured. Add your personal exam dates or study tasks.</string>
+    <string name="btn_add_study_task">+ Add Task / Exam</string>
+    <string name="btn_manage_my_courses">My Courses</string>
+
+    <!-- Resource Categories -->
+    <string name="cat_all">All Resources</string>
+    <string name="cat_lecture_notes">Lecture Notes</string>
+    <string name="cat_pdf_notes">PDF Notes</string>
+    <string name="cat_slides">Lecture Slides</string>
+    <string name="cat_syllabus">Official Syllabus</string>
+    <string name="cat_questions">Question Papers</string>
+    <string name="cat_suggestions">Suggestions</string>
+    <string name="cat_lab">Lab Manuals &amp; Reports</string>
+    <string name="cat_assignments">Assignments &amp; Projects</string>
+
+    <!-- Smart Filters -->
+    <string name="smart_filters_title">Academic Explorer &amp; Filters</string>
+    <string name="filter_department_label">Department</string>
+    <string name="filter_department_hint">Select department (e.g. SWE, CSE)</string>
+    <string name="filter_course_label">Course / Subject</string>
+    <string name="filter_course_hint">Select or enter course code</string>
+    <string name="filter_title_label">Keyword / Resource Title</string>
+    <string name="filter_title_hint">Search by title, code, or topic</string>
+    <string name="btn_reset">Reset</string>
+    <string name="btn_search_now">Apply Filter</string>
+    <string name="filter_questions_title">Past Examination Questions</string>
+    <string name="btn_reset_questions">Reset Filters</string>
+
+    <!-- Note Card -->
+    <string name="btn_view_pdf">Open PDF</string>
+    <string name="btn_download">Save Offline</string>
+    <string name="btn_delete_file">Remove Offline</string>
+    <string name="label_downloaded">OFFLINE ✓</string>
+    <string name="label_verified">VERIFIED</string>
+    <string name="label_bookmarked">★ Saved</string>
+
+    <!-- Detail Screen -->
+    <string name="loading_pdf">Loading academic PDF…</string>
+    <string name="error_load_pdf">Could not load this PDF. Verify your connection or download for offline use.</string>
     <string name="btn_retry">Retry</string>
     <string name="btn_share">Share</string>
-    <string name="btn_info">Info</string>
+    <string name="btn_info">Details</string>
+    <string name="btn_bookmark">Bookmark</string>
+    <string name="btn_rate_review">Rate / Review</string>
+    <string name="btn_report_resource">Report Issue</string>
 
-    <!-- Info bottom sheet -->
-    <string name="info_header">Document Details</string>
+    <!-- Info Bottom Sheet -->
+    <string name="info_header">Resource Metadata</string>
     <string name="info_title">Title</string>
-    <string name="info_subject">Subject</string>
-    <string name="info_uploaded_by">Uploaded By</string>
-    <string name="info_date">Date</string>
+    <string name="info_subject">Course Title</string>
+    <string name="info_course_code">Course Code</string>
+    <string name="info_department">Department</string>
+    <string name="info_uploaded_by">Contributor</string>
+    <string name="info_date">Published Date</string>
     <string name="info_size">File Size</string>
-    <string name="info_downloads">Downloads</string>
+    <string name="info_downloads">Views / Downloads</string>
     <string name="info_server_url">Server URL</string>
-    <string name="info_storage_header">Storage Details</string>
+    <string name="info_storage_header">Offline Storage &amp; Reading Progress</string>
     <string name="info_local_path">Local Path</string>
 
     <!-- Dialogs -->
-    <string name="dialog_delete_file_title">Remove Offline File?</string>
-    <string name="dialog_delete_file_message">This will remove the PDF from your device.\nThe note will still be available online.</string>
-    <string name="dialog_delete_note_title">Delete Note?</string>
-    <string name="dialog_delete_note_message">This will permanently remove this note from your saved list.</string>
+    <string name="dialog_delete_file_title">Remove Offline Copy?</string>
+    <string name="dialog_delete_file_message">This removes the local PDF file from your device storage.\nThe resource remains available in the online library.</string>
+    <string name="dialog_delete_note_title">Remove Resource From Device Cache?</string>
+    <string name="dialog_delete_note_message">This removes this cached entry and any local PDF file from your device.</string>
     <string name="btn_cancel">Cancel</string>
-    <string name="btn_remove_file">Remove File</string>
-    <string name="btn_delete_note">Delete Note</string>
+    <string name="btn_remove_file">Remove Offline Copy</string>
+    <string name="btn_delete_note">Remove</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_submit">Submit</string>
+
+    <!-- Academic Context & Profile Dialog -->
+    <string name="dialog_context_title">Academic Context &amp; Settings</string>
+    <string name="label_university">University</string>
+    <string name="label_department">Department</string>
+    <string name="label_batch">Batch / Curriculum</string>
+    <string name="label_semester">Current Semester</string>
+    <string name="label_language">Interface Language</string>
+    <string name="label_theme">Appearance Theme</string>
+
+    <!-- Upload / Contribution Dialog -->
+    <string name="upload_dialog_title">Contribute Academic Resource</string>
+    <string name="upload_select_pdf">Select PDF Document (Max 20 MB)</string>
+    <string name="upload_moderation_notice">Submissions are placed in Pending Review status and verified before public listing. Do not upload copyrighted textbooks.</string>
 
     <!-- Content descriptions -->
     <string name="cd_pdf_thumbnail">PDF thumbnail</string>
-    <string name="cd_back">Back</string>
-    <string name="cd_more_options">More options</string>
+    <string name="cd_back">Navigate back</string>
+    <string name="cd_more_options">More resource actions</string>
 </resources>

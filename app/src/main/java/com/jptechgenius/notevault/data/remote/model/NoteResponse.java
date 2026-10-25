@@ -3,8 +3,8 @@ package com.jptechgenius.notevault.data.remote.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * POJO representing a note returned from the REST API.
- * Updated to match the diunotes.com API schema.
+ * POJO representing an academic resource / note returned from the REST API.
+ * Backward-compatible with both the legacy diunotes schema and the upgraded NoteVault API v1.
  */
 public class NoteResponse {
 
@@ -14,7 +14,7 @@ public class NoteResponse {
     @SerializedName("title")
     private String title;
 
-    @SerializedName("fileUrl")
+    @SerializedName(value = "fileUrl", alternate = {"pdf_url", "file_url"})
     private String fileUrl;
 
     @SerializedName("description")
@@ -23,25 +23,37 @@ public class NoteResponse {
     @SerializedName("courseId")
     private int courseId;
 
-    @SerializedName("courseCode")
+    @SerializedName(value = "courseCode", alternate = {"course_code"})
     private String courseCode;
 
-    @SerializedName("courseName")
+    @SerializedName(value = "courseName", alternate = {"subject", "course_name"})
     private String courseName;
 
     @SerializedName("departmentId")
     private int departmentId;
 
-    @SerializedName("departmentName")
+    @SerializedName(value = "departmentName", alternate = {"department_name"})
     private String departmentName;
 
-    @SerializedName("userName")
+    @SerializedName(value = "universityName", alternate = {"university_name"})
+    private String universityName;
+
+    @SerializedName(value = "resourceCategory", alternate = {"resource_category", "category"})
+    private String resourceCategory;
+
+    @SerializedName(value = "semesterName", alternate = {"semester_name", "semester"})
+    private String semesterName;
+
+    @SerializedName(value = "batchName", alternate = {"batch_name", "batch"})
+    private String batchName;
+
+    @SerializedName(value = "userName", alternate = {"uploaded_by", "user_name"})
     private String userName;
 
-    @SerializedName("createdAt")
+    @SerializedName(value = "createdAt", alternate = {"uploaded_at", "created_at"})
     private String createdAt;
 
-    @SerializedName("updatedAt")
+    @SerializedName(value = "updatedAt", alternate = {"updated_at"})
     private String updatedAt;
 
     @SerializedName("userId")
@@ -62,16 +74,28 @@ public class NoteResponse {
     @SerializedName("savedByCurrentUser")
     private boolean savedByCurrentUser;
 
-    @SerializedName("viewCount")
+    @SerializedName(value = "viewCount", alternate = {"download_count", "view_count"})
     private int viewCount;
+
+    @SerializedName(value = "fileSize", alternate = {"file_size"})
+    private long fileSize;
 
     @SerializedName("status")
     private String status;
 
+    @SerializedName(value = "isVerified", alternate = {"is_verified"})
+    private boolean isVerified;
+
+    @SerializedName(value = "ratingAvg", alternate = {"rating_avg"})
+    private float ratingAvg;
+
+    @SerializedName(value = "ratingCount", alternate = {"rating_count"})
+    private int ratingCount;
+
     @SerializedName("approvedAt")
     private String approvedAt;
 
-    @SerializedName("thumbnail_url") // Keep for backward compatibility or if needed later
+    @SerializedName(value = "thumbnail_url", alternate = {"thumbnailUrl"})
     private String thumbnailUrl;
 
     // ─── Getters ────────────────────────────────────────────────────────────────
@@ -85,6 +109,10 @@ public class NoteResponse {
     public String getCourseName() { return courseName; }
     public int getDepartmentId() { return departmentId; }
     public String getDepartmentName() { return departmentName; }
+    public String getUniversityName() { return universityName; }
+    public String getResourceCategory() { return resourceCategory; }
+    public String getSemesterName() { return semesterName; }
+    public String getBatchName() { return batchName; }
     public String getUserName() { return userName; }
     public String getCreatedAt() { return createdAt; }
     public String getUpdatedAt() { return updatedAt; }
@@ -95,7 +123,11 @@ public class NoteResponse {
     public boolean isDislikedByCurrentUser() { return dislikedByCurrentUser; }
     public boolean isSavedByCurrentUser() { return savedByCurrentUser; }
     public int getViewCount() { return viewCount; }
+    public long getFileSize() { return fileSize; }
     public String getStatus() { return status; }
+    public boolean isVerified() { return isVerified; }
+    public float getRatingAvg() { return ratingAvg; }
+    public int getRatingCount() { return ratingCount; }
     public String getApprovedAt() { return approvedAt; }
     public String getThumbnailUrl() { return thumbnailUrl; }
 
@@ -110,6 +142,10 @@ public class NoteResponse {
     public void setCourseName(String courseName) { this.courseName = courseName; }
     public void setDepartmentId(int departmentId) { this.departmentId = departmentId; }
     public void setDepartmentName(String departmentName) { this.departmentName = departmentName; }
+    public void setUniversityName(String universityName) { this.universityName = universityName; }
+    public void setResourceCategory(String resourceCategory) { this.resourceCategory = resourceCategory; }
+    public void setSemesterName(String semesterName) { this.semesterName = semesterName; }
+    public void setBatchName(String batchName) { this.batchName = batchName; }
     public void setUserName(String userName) { this.userName = userName; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
     public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
@@ -120,7 +156,11 @@ public class NoteResponse {
     public void setDislikedByCurrentUser(boolean dislikedByCurrentUser) { this.dislikedByCurrentUser = dislikedByCurrentUser; }
     public void setSavedByCurrentUser(boolean savedByCurrentUser) { this.savedByCurrentUser = savedByCurrentUser; }
     public void setViewCount(int viewCount) { this.viewCount = viewCount; }
+    public void setFileSize(long fileSize) { this.fileSize = fileSize; }
     public void setStatus(String status) { this.status = status; }
+    public void setVerified(boolean verified) { isVerified = verified; }
+    public void setRatingAvg(float ratingAvg) { this.ratingAvg = ratingAvg; }
+    public void setRatingCount(int ratingCount) { this.ratingCount = ratingCount; }
     public void setApprovedAt(String approvedAt) { this.approvedAt = approvedAt; }
     public void setThumbnailUrl(String thumbnailUrl) { this.thumbnailUrl = thumbnailUrl; }
 }

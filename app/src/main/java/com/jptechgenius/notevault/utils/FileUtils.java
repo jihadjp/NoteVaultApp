@@ -7,10 +7,11 @@ import android.os.Build;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Locale;
 
 /**
- * Utility methods for file operations.
+ * Utility methods for file operations, storage calculation, and PDF validation.
  */
 public final class FileUtils {
 
@@ -21,7 +22,7 @@ public final class FileUtils {
      * e.g. 2457600 → "2.4 MB", 348000 → "340 KB"
      */
     public static String formatSize(long bytes) {
-        if (bytes <= 0) return "0 B";
+        if (bytes <= 0) return "PDF";
         if (bytes < 1024) return bytes + " B";
 
         double kb = bytes / 1024.0;
@@ -54,12 +55,59 @@ public final class FileUtils {
     }
 
     /**
-     * Check if a local file exists at the given path.
+     * Check if a local file exists and is non-empty at the given path.
      */
     public static boolean fileExists(String path) {
         if (path == null || path.isEmpty()) return false;
         File file = new File(path);
-        return file.exists() && file.isFile();
+        return file.exists() && file.isFile() && file.length() > 0;
+    }
+
+    /**
+     * Verify that a file begins with the standard "%PDF-" magic signature.
+     */
+    public static boolean isValidPdfFile(File file) {
+        if (file == null || !file.exists() || !file.isFile() || file.length() < 5) {
+            return false;
+        }
+        byte[] header = new byte[5];
+        try (FileInputStream fis = new FileInputStream(file)) {
+            int read = fis.read(header);
+            if (read < 5) return false;
+            return header[0] == '%' && header[1] == 'P' && header[2] == 'D' && header[3] == 'F' && header[4] == '-';
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Calculate total bytes used by downloaded PDFs in the NoteVault directory.
+     */
+    public static long getTotalDownloadedBytes(Context context) {
+        File dir = ensureDownloadDir(context);
+        File[] files = dir.listFiles();
+        if (files == null) return 0L;
+        long total = 0L;
+        for (File f : files) {
+            if (f.isFile()) {
+                total += f.length();
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Count how many offline PDF files exist in the NoteVault download directory.
+     */
+    public static int getDownloadedFileCount(Context context) {
+        File dir = ensureDownloadDir(context);
+        File[] files = dir.listFiles();
+        if (files == null) return 0;
+        int count = 0;
+        for (File f : files) {
+            if (f.isFile() && f.length() > 0) count++;
+        }
+        return count;
     }
 
     /**

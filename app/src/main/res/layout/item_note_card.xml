@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="8dp"
-    app:cardForegroundColor="#02000000"
+    android:layout_marginVertical="7dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
     app:strokeWidth="1dp"
     app:strokeColor="@color/colorDivider"
     app:cardBackgroundColor="@color/colorSurface">
@@ -22,7 +21,7 @@
         <!-- Accent Line -->
         <View
             android:layout_width="3dp"
-            android:layout_height="40dp"
+            android:layout_height="44dp"
             android:background="@drawable/bg_splash_gradient"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,14 +30,14 @@
         <!-- Thumbnail Section -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvThumbnail"
-            android:layout_width="68dp"
-            android:layout_height="88dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="4dp"
+            android:layout_width="64dp"
+            android:layout_height="84dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
             app:strokeWidth="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="12dp">
+            android:layout_marginStart="10dp">
 
             <ImageView
                 android:id="@+id/ivThumbnail"
@@ -56,9 +55,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_glass_badge_success"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="6dp"
             android:paddingVertical="2dp"
-            android:text="SAVED ✓"
+            android:text="@string/label_downloaded"
             android:textColor="@color/colorSuccess"
             android:textSize="8sp"
             android:textStyle="bold"
@@ -73,45 +72,80 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="14dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:letterSpacing="-0.01"
             app:layout_constraintEnd_toStartOf="@id/btnMore"
             app:layout_constraintStart_toEndOf="@id/cvThumbnail"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvSubject"
-            android:layout_width="wrap_content"
+        <!-- Subject + Category Row -->
+        <LinearLayout
+            android:id="@+id/llBadges"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_pill_subject_gradient"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.05"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintStart_toEndOf="@id/cvThumbnail"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <TextView
+                android:id="@+id/tvSubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_subject_gradient"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/colorChipText"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tvCategoryBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_glass_badge_success"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tvBookmarkedBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="★"
+                android:textColor="@color/colorWarning"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llMeta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             app:layout_constraintStart_toEndOf="@id/cvThumbnail"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSubject">
+            app:layout_constraintTop_toBottomOf="@id/llBadges">
 
             <ImageView
                 android:layout_width="12dp"
@@ -131,36 +165,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  " />
+                android:text=" • "
+                android:textColor="@color/colorTextMuted"
+                android:textSize="11sp" />
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:src="@android:drawable/ic_menu_save"
-                app:tint="@color/colorTextMuted" />
             <TextView
                 android:id="@+id/tvFileSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="11sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  " />
+                android:text=" • "
+                android:textColor="@color/colorTextMuted"
+                android:textSize="11sp" />
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:src="@android:drawable/stat_sys_download_done"
-                app:tint="@color/colorTextMuted" />
             <TextView
                 android:id="@+id/tvDownloadCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -168,8 +194,8 @@
         <!-- More Button -->
         <ImageButton
             android:id="@+id/btnMore"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_more"
             android:contentDescription="@string/cd_more_options"
@@ -184,7 +210,7 @@
             android:id="@+id/vDivider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="14dp"
             android:background="@color/colorDivider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -194,7 +220,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/vDivider">
 
@@ -202,50 +228,50 @@
                 android:id="@+id/btnViewPdf"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="44dp"
                 android:layout_weight="1"
-                android:text="Read Note"
+                android:text="@string/btn_view_pdf"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 app:strokeColor="@color/colorPrimary"
                 app:strokeWidth="1.5dp"
-                app:cornerRadius="14dp"
+                app:cornerRadius="12dp"
                 app:icon="@android:drawable/ic_menu_view"
-                app:iconSize="18dp"
+                app:iconSize="16dp"
                 app:iconTint="@color/colorPrimary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDownload"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="12dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="Download"
+                android:text="@string/btn_download"
                 android:textAllCaps="false"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:background="@drawable/bg_button_primary_gradient"
                 app:backgroundTint="@null"
-                app:cornerRadius="14dp"
+                app:cornerRadius="12dp"
                 app:icon="@android:drawable/stat_sys_download_done"
-                app:iconSize="18dp" />
+                app:iconSize="16dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteFile"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="12dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="Remove"
+                android:text="@string/btn_delete_file"
                 android:textAllCaps="false"
                 android:textColor="@color/colorError"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:visibility="gone"
                 app:icon="@android:drawable/ic_menu_delete"
-                app:iconSize="18dp"
+                app:iconSize="16dp"
                 app:iconTint="@color/colorError" />
 
         </LinearLayout>

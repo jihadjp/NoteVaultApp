@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand - Premium Indigo -->
-    <color name="colorPrimary">#4F46E5</color>
-    <color name="colorPrimaryDark">#3730A3</color>
-    <color name="colorAccent">#F59E0B</color>
+    <!-- Brand - Premium Dark Emerald / Deep Teal -->
+    <color name="colorPrimary">#086B61</color>
+    <color name="colorPrimaryDark">#06463F</color>
+    <color name="colorAccent">#14B8A6</color>
 
     <!-- Backgrounds -->
-    <color name="colorBackground">#FBFBFE</color>
+    <color name="colorBackground">#F6F8FA</color>
     <color name="colorSurface">#FFFFFF</color>
-    <color name="colorSurfaceVariant">#F1F5F9</color>
+    <color name="colorSurfaceVariant">#EEF3F2</color>
 
     <!-- Text -->
-    <color name="colorTextPrimary">#1E293B</color>
-    <color name="colorTextSecondary">#64748B</color>
-    <color name="colorTextMuted">#94A3B8</color>
+    <color name="colorTextPrimary">#17211F</color>
+    <color name="colorTextSecondary">#4B635E</color>
+    <color name="colorTextMuted">#7B938E</color>
 
     <!-- Semantic -->
     <color name="colorSuccess">#10B981</color>
@@ -21,31 +21,31 @@
     <color name="colorWarning">#F59E0B</color>
 
     <!-- Card states -->
-    <color name="colorDownloaded">#F0FDF4</color>
+    <color name="colorDownloaded">#ECFDF5</color>
     <color name="cardShadow">#0F000000</color>
 
     <!-- Misc -->
-    <color name="colorDivider">#E2E8F0</color>
+    <color name="colorDivider">#DCE5E3</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorTransparent">#00000000</color>
 
     <!-- Subject chip background -->
-    <color name="colorChipBackground">#EEF2FF</color>
-    <color name="colorChipText">#4F46E5</color>
+    <color name="colorChipBackground">#E6F4F2</color>
+    <color name="colorChipText">#086B61</color>
 
     <!-- Shimmer -->
-    <color name="shimmer_base">#E2E8F0</color>
-    <color name="shimmer_highlight">#F8FAFC</color>
+    <color name="shimmer_base">#DCE5E3</color>
+    <color name="shimmer_highlight">#F6F8FA</color>
 
     <!-- Gradients -->
-    <color name="gradient_start">#4F46E5</color>
-    <color name="gradient_end">#7C3AED</color>
-    <color name="gradient_light_lavender">#E0E7FF</color>
+    <color name="gradient_start">#086B61</color>
+    <color name="gradient_end">#0D9488</color>
+    <color name="gradient_light_lavender">#CCFBF1</color>
 
     <!-- Glassmorphism -->
-    <color name="colorGlassWhite">#B3FFFFFF</color> <!-- 70% opacity -->
-    <color name="colorGlassStroke">#4DFFFFFF</color> <!-- 30% opacity -->
-    <color name="colorGlassSurface">#D9FFFFFF</color> <!-- 85% opacity -->
-    <color name="colorGlassDark">#B316213E</color> <!-- 70% opacity for dark mode -->
+    <color name="colorGlassWhite">#CCFFFFFF</color>
+    <color name="colorGlassStroke">#4D086B61</color>
+    <color name="colorGlassSurface">#F2FFFFFF</color>
+    <color name="colorGlassDark">#CC192321</color>
 </resources>

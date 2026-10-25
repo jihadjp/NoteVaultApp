@@ -17,6 +17,7 @@ public class RetrofitClient {
 
     private static Retrofit retrofit;
     private static ApiService apiService;
+    private static OkHttpClient sharedHttpClient;
 
     private RetrofitClient() {}
 
@@ -27,22 +28,27 @@ public class RetrofitClient {
         return apiService;
     }
 
-    private static Retrofit getRetrofitInstance() {
-        if (retrofit == null) {
-            // Logging interceptor (only active in debug builds)
+    public static OkHttpClient getHttpClient() {
+        if (sharedHttpClient == null) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            // Use BASIC level to avoid logging sensitive bodies or large binary streams
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
-            OkHttpClient client = new OkHttpClient.Builder()
+            sharedHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
                     .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(45, TimeUnit.SECONDS)
+                    .writeTimeout(45, TimeUnit.SECONDS)
                     .build();
+        }
+        return sharedHttpClient;
+    }
 
+    private static Retrofit getRetrofitInstance() {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
-                    .client(client)
+                    .client(getHttpClient())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
@@ -55,5 +61,6 @@ public class RetrofitClient {
     public static void reset() {
         retrofit = null;
         apiService = null;
+        sharedHttpClient = null;
     }
 }

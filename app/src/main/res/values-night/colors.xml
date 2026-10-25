@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Night mode overrides -->
-    <color name="colorBackground">#1A1A2E</color>
-    <color name="colorSurface">#16213E</color>
-    <color name="colorTextPrimary">#F0F0FF</color>
-    <color name="colorTextSecondary">#9090AA</color>
-    <color name="colorDivider">#2A2A4A</color>
-    <color name="colorChipBackground">#2A2560</color>
-    <color name="colorDownloaded">#1B3A1F</color>
+    <!-- Night mode overrides — Dark Emerald / Deep Teal -->
+    <color name="colorPrimary">#14B8A6</color>
+    <color name="colorPrimaryDark">#086B61</color>
+    <color name="colorAccent">#2DD4BF</color>
+
+    <color name="colorBackground">#101817</color>
+    <color name="colorSurface">#192321</color>
+    <color name="colorSurfaceVariant">#21302D</color>
+
+    <color name="colorTextPrimary">#F0F5F4</color>
+    <color name="colorTextSecondary">#A3B8B4</color>
+    <color name="colorTextMuted">#6E8782</color>
+
+    <color name="colorDivider">#2A3B38</color>
+    <color name="colorChipBackground">#163834</color>
+    <color name="colorChipText">#2DD4BF</color>
+    <color name="colorDownloaded">#132E27</color>
+
+    <color name="shimmer_base">#21302D</color>
+    <color name="shimmer_highlight">#2A3B38</color>
+
+    <color name="gradient_start">#06463F</color>
+    <color name="gradient_end">#086B61</color>
+    <color name="gradient_light_lavender">#163834</color>
+
+    <color name="colorGlassWhite">#CC192321</color>
+    <color name="colorGlassStroke">#4D14B8A6</color>
+    <color name="colorGlassSurface">#F2192321</color>
 </resources>

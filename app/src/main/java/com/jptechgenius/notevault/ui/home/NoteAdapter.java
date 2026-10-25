@@ -16,8 +16,10 @@ import com.jptechgenius.notevault.data.local.entity.NoteEntity;
 import com.jptechgenius.notevault.databinding.ItemNoteCardBinding;
 import com.jptechgenius.notevault.utils.FileUtils;
 
+import java.util.Objects;
+
 /**
- * RecyclerView adapter for note cards on the home screen.
+ * RecyclerView adapter for academic resource cards.
  * Uses ListAdapter + DiffUtil for efficient incremental updates.
  */
 public class NoteAdapter extends ListAdapter<NoteEntity, NoteAdapter.NoteViewHolder> {
@@ -50,8 +52,11 @@ public class NoteAdapter extends ListAdapter<NoteEntity, NoteAdapter.NoteViewHol
                 public boolean areContentsTheSame(@NonNull NoteEntity oldItem,
                                                   @NonNull NoteEntity newItem) {
                     return oldItem.isDownloaded() == newItem.isDownloaded()
+                            && oldItem.isBookmarked() == newItem.isBookmarked()
+                            && oldItem.getLastReadPage() == newItem.getLastReadPage()
                             && oldItem.getDownloadCount() == newItem.getDownloadCount()
-                            && oldItem.getTitle().equals(newItem.getTitle());
+                            && Objects.equals(oldItem.getTitle(), newItem.getTitle())
+                            && Objects.equals(oldItem.getCourseCode(), newItem.getCourseCode());
                 }
             };
 
@@ -74,8 +79,6 @@ public class NoteAdapter extends ListAdapter<NoteEntity, NoteAdapter.NoteViewHol
         holder.bind(note, listener, downloadingNoteId);
     }
 
-    // ─── ViewHolder ───────────────────────────────────────────────────────────
-
     static class NoteViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemNoteCardBinding binding;
@@ -87,20 +90,31 @@ public class NoteAdapter extends ListAdapter<NoteEntity, NoteAdapter.NoteViewHol
 
         void bind(NoteEntity note, NoteClickListener listener, int downloadingNoteId) {
             binding.tvTitle.setText(note.getTitle());
-            
+
             String subjectDisplay = note.getSubject();
             if (note.getCourseCode() != null && !note.getCourseCode().isEmpty()) {
-                subjectDisplay = note.getCourseCode() + " • " + subjectDisplay;
+                subjectDisplay = note.getCourseCode()
+                        + (subjectDisplay != null && !subjectDisplay.isEmpty() ? " • " + subjectDisplay : "");
+            } else if (note.getDepartmentName() != null && !note.getDepartmentName().isEmpty()) {
+                subjectDisplay = note.getDepartmentName();
             }
-            binding.tvSubject.setText(subjectDisplay != null ? subjectDisplay : "General");
+            binding.tvSubject.setText(subjectDisplay != null && !subjectDisplay.isEmpty() ? subjectDisplay : "DIU Academic");
 
-            binding.tvUploader.setText(note.getUploadedBy() != null
-                    ? note.getUploadedBy() : "Anonymous");
+            binding.tvCategoryBadge.setText(note.getResolvedCategory());
+            binding.tvBookmarkedBadge.setVisibility(note.isBookmarked() ? View.VISIBLE : View.GONE);
+
+            String uploaderText = (note.getUploadedBy() != null && !note.getUploadedBy().isEmpty()
+                    ? note.getUploadedBy() : "Contributor")
+                    + (note.isVerified() ? " ✓" : "");
+            binding.tvUploader.setText(uploaderText);
             binding.tvFileSize.setText(FileUtils.formatSize(note.getFileSize()));
-            binding.tvDownloadCount.setText(
-                    FileUtils.formatDownloadCount(note.getDownloadCount()) + " downloads");
 
-            // Load thumbnail with Glide
+            String statsText = FileUtils.formatDownloadCount(note.getDownloadCount()) + " views";
+            if (note.getLastReadPage() > 0 && note.getTotalPages() > 0) {
+                statsText += " • p." + note.getLastReadPage() + "/" + note.getTotalPages();
+            }
+            binding.tvDownloadCount.setText(statsText);
+
             Glide.with(itemView.getContext())
                     .load(note.getThumbnailUrl())
                     .placeholder(R.drawable.ic_pdf_placeholder)
@@ -108,7 +122,6 @@ public class NoteAdapter extends ListAdapter<NoteEntity, NoteAdapter.NoteViewHol
                     .centerCrop()
                     .into(binding.ivThumbnail);
 
-            // Downloaded state
             boolean isDownloaded = note.isDownloaded()
                     && FileUtils.fileExists(note.getLocalFilePath());
             boolean isDownloading = note.getId() == downloadingNoteId;
@@ -136,7 +149,6 @@ public class NoteAdapter extends ListAdapter<NoteEntity, NoteAdapter.NoteViewHol
                 binding.progressDownload.setVisibility(View.GONE);
             }
 
-            // Click listeners
             binding.btnViewPdf.setOnClickListener(v -> listener.onViewPDF(note));
             binding.btnDownload.setOnClickListener(v -> listener.onDownload(note));
             binding.btnDeleteFile.setOnClickListener(v -> listener.onDeleteFile(note));

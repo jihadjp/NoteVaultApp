@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- ── Base app theme ──────────────────────────────────────────────────── -->
-    <style name="Theme.NoteVaultDIU" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!-- ── Base app theme (DayNight support) ──────────────────────────────── -->
+    <style name="Theme.NoteVaultDIU" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorSecondary">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:statusBarColor">@color/colorBackground</item>
@@ -15,14 +17,14 @@
     <!-- ── Splash theme ───────────────────────── -->
     <style name="Theme.NoteVaultDIU.Splash" parent="Theme.NoteVaultDIU">
         <item name="android:windowBackground">@drawable/bg_splash_gradient</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <!-- ── Typography ─────────────────────────────────────────────────────── -->
     <style name="TextAppearance.NoteVaultDIU.Title"
         parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:letterSpacing">-0.01</item>

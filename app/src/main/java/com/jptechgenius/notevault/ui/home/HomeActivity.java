@@ -118,6 +118,7 @@ public class HomeActivity extends AppCompatActivity implements NoteAdapter.NoteC
         });
 
         observeAllNotes();
+        viewModel.loadFromServer();
     }
 
     private void setupFilters() {

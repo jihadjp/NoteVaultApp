@@ -3,13 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_delete_note"
-        android:title="Delete Note"
+        android:id="@+id/action_rate_review"
+        android:title="@string/btn_rate_review"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_report_resource"
+        android:title="@string/btn_report_resource"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_copy_url"
-        android:title="Copy Server URL"
+        android:title="Copy Resource URL"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_delete_note"
+        android:title="@string/btn_delete_note"
         app:showAsAction="never" />
 
 </menu>

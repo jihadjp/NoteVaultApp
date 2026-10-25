@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">নোটভল্ট ডিআইইউ</string>
+    <string name="app_tagline">একাডেমিক রিসোর্স ও স্টাডি প্ল্যাটফর্ম</string>
+
+    <!-- Navigation Destinations -->
+    <string name="nav_home">হোম</string>
+    <string name="nav_explore">এক্সপ্লোর</string>
+    <string name="nav_downloads">ডাউনলোড</string>
+    <string name="nav_bookmarks">বুকমার্ক</string>
+    <string name="nav_profile">প্রোফাইল</string>
+
+    <!-- Home & Academic Context -->
+    <string name="greeting_subtitle">একাডেমিক রিসোর্স প্ল্যাটফর্ম</string>
+    <string name="default_member_title">ডিআইইউ শিক্ষার্থী</string>
+    <string name="academic_context_change">পরিবর্তন করুন</string>
+    <string name="search_hint">কোর্স কোড, শিরোনাম বা নোট খুঁজুন…</string>
+    <string name="clear_search_history">সার্চ হিস্ট্রি মুছুন</string>
+    <string name="tab_all_notes">হোম</string>
+    <string name="tab_questions">এক্সপ্লোর</string>
+    <string name="tab_downloaded">ডাউনলোড</string>
+    <string name="tab_bookmarks">বুকমার্ক</string>
+    <string name="tab_profile">প্রোফাইল</string>
+    <string name="offline_banner">⚠ অফলাইন মোড — সংরক্ষিত নোট ও লোকাল পিডিএফ দেখানো হচ্ছে</string>
+    <string name="empty_state_title">কোনো একাডেমিক রিসোর্স পাওয়া যায়নি</string>
+    <string name="empty_state_subtitle">রিফ্রেশ করতে নিচে টানুন অথবা ডিপার্টমেন্ট ফিল্টার পরিবর্তন করুন</string>
+    <string name="fab_contribute">নোট আপলোড</string>
+
+    <!-- Continue Studying & Exam Countdown -->
+    <string name="continue_studying_title">পড়া চালিয়ে যান</string>
+    <string name="continue_studying_resume">পৃষ্ঠা %1$d / %2$d থেকে শুরু করুন</string>
+    <string name="exam_countdown_title">স্টাডি প্ল্যানার ও পরীক্ষার কাউন্টডাউন</string>
+    <string name="exam_countdown_empty">কোনো পরীক্ষার তারিখ যুক্ত করা হয়নি। আপনার পরীক্ষার তারিখ বা কাজ যুক্ত করুন।</string>
+    <string name="btn_add_study_task">+ পরীক্ষা / টাস্ক যুক্ত করুন</string>
+    <string name="btn_manage_my_courses">আমার কোর্সসমূহ</string>
+
+    <!-- Resource Categories -->
+    <string name="cat_all">সব রিসোর্স</string>
+    <string name="cat_lecture_notes">লেকচার নোট</string>
+    <string name="cat_pdf_notes">পিডিএফ নোট</string>
+    <string name="cat_slides">লেকচার স্লাইড</string>
+    <string name="cat_syllabus">অফিসিয়াল সিলেবাস</string>
+    <string name="cat_questions">বিগত সালের প্রশ্ন</string>
+    <string name="cat_suggestions">সাজেশন</string>
+    <string name="cat_lab">ল্যাব ম্যানুয়াল ও রিপোর্ট</string>
+    <string name="cat_assignments">অ্যাসাইনমেন্ট ও প্রজেক্ট</string>
+
+    <!-- Smart Filters -->
+    <string name="smart_filters_title">একাডেমিক এক্সপ্লোরার ও ফিল্টার</string>
+    <string name="filter_department_label">ডিপার্টমেন্ট</string>
+    <string name="filter_department_hint">ডিপার্টমেন্ট নির্বাচন করুন (যেমন SWE, CSE)</string>
+    <string name="filter_course_label">কোর্স / বিষয়</string>
+    <string name="filter_course_hint">কোর্স কোড নির্বাচন বা টাইপ করুন</string>
+    <string name="filter_title_label">শিরোনাম / কীওয়ার্ড</string>
+    <string name="filter_title_hint">শিরোনাম বা কোর্স কোড দিয়ে খুঁজুন</string>
+    <string name="btn_reset">রিসেট</string>
+    <string name="btn_search_now">ফিল্টার করুন</string>
+    <string name="filter_questions_title">বিগত পরীক্ষার প্রশ্নপত্র</string>
+    <string name="btn_reset_questions">ফিল্টার রিসেট করুন</string>
+
+    <!-- Note Card -->
+    <string name="btn_view_pdf">পিডিএফ পড়ুন</string>
+    <string name="btn_download">অফলাইনে রাখুন</string>
+    <string name="btn_delete_file">অফলাইন মুছুন</string>
+    <string name="label_downloaded">অফলাইন ✓</string>
+    <string name="label_verified">যাচাইকৃত</string>
+    <string name="label_bookmarked">★ বুকমার্ক</string>
+
+    <!-- Detail Screen -->
+    <string name="loading_pdf">পিডিএফ লোড হচ্ছে…</string>
+    <string name="error_load_pdf">পিডিএফ লোড করা যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করুন।</string>
+    <string name="btn_retry">পুনরায় চেষ্টা করুন</string>
+    <string name="btn_share">শেয়ার</string>
+    <string name="btn_info">বিস্তারিত</string>
+    <string name="btn_bookmark">বুকমার্ক</string>
+    <string name="btn_rate_review">রিভিউ দিন</string>
+    <string name="btn_report_resource">রিপোর্ট করুন</string>
+
+    <!-- Info Bottom Sheet -->
+    <string name="info_header">রিসোর্স তথ্য</string>
+    <string name="info_title">শিরোনাম</string>
+    <string name="info_subject">কোর্সের নাম</string>
+    <string name="info_course_code">কোর্স কোড</string>
+    <string name="info_department">ডিপার্টমেন্ট</string>
+    <string name="info_uploaded_by">আপলোডকারী</string>
+    <string name="info_date">তারিখ</string>
+    <string name="info_size">ফাইলের আকার</string>
+    <string name="info_downloads">ভিউ / ডাউনলোড</string>
+    <string name="info_server_url">সার্ভার লিংক</string>
+    <string name="info_storage_header">অফলাইন স্টোরেজ ও পঠন অগ্রগতি</string>
+    <string name="info_local_path">লোকাল ফাইল পাথ</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_delete_file_title">অফলাইন ফাইল মুছে ফেলবেন?</string>
+    <string name="dialog_delete_file_message">এটি আপনার ডিভাইস থেকে ডাউনলোড করা পিডিএফ ফাইলটি মুছে ফেলবে।\nঅনলাইনে নোটটি তখনও পাওয়া যাবে।</string>
+    <string name="dialog_delete_note_title">তালিকা থেকে মুছে ফেলবেন?</string>
+    <string name="dialog_delete_note_message">এটি আপনার সংরক্ষিত তালিকা থেকে নোটটি সরিয়ে দেবে।</string>
+    <string name="btn_cancel">বাতিল</string>
+    <string name="btn_remove_file">ফাইল মুছুন</string>
+    <string name="btn_delete_note">মুছে ফেলুন</string>
+    <string name="btn_save">সংরক্ষণ</string>
+    <string name="btn_submit">জমা দিন</string>
+
+    <!-- Academic Context & Profile Dialog -->
+    <string name="dialog_context_title">একাডেমিক তথ্য ও সেটিংস</string>
+    <string name="label_university">বিশ্ববিদ্যালয়</string>
+    <string name="label_department">ডিপার্টমেন্ট</string>
+    <string name="label_batch">ব্যাচ / কারিকুলাম</string>
+    <string name="label_semester">বর্তমান সেমিস্টার</string>
+    <string name="label_language">ভাষা (Language)</string>
+    <string name="label_theme">থিম (Theme)</string>
+
+    <!-- Upload / Contribution Dialog -->
+    <string name="upload_dialog_title">নতুন একাডেমিক রিসোর্স জমা দিন</string>
+    <string name="upload_select_pdf">পিডিএফ ফাইল নির্বাচন করুন (সর্বোচ্চ ২০ মেগাবাইট)</string>
+    <string name="upload_moderation_notice">জমা দেওয়া নোট মডারেশন যাচাইয়ের পর প্রকাশিত হবে। কপিরাইটযুক্ত বই আপলোড করবেন না।</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_pdf_thumbnail">পিডিএফ থাম্বনেইল</string>
+    <string name="cd_back">পিছনে যান</string>
+    <string name="cd_more_options">আরও অপশন</string>
+</resources>

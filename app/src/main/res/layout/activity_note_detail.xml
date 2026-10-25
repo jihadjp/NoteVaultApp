@@ -41,8 +41,8 @@
             android:orientation="vertical">
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:indeterminateTint="@color/colorPrimary" />
             <TextView
                 android:layout_width="wrap_content"
@@ -62,19 +62,21 @@
             android:padding="40dp"
             android:visibility="gone">
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:src="@drawable/ic_pdf_placeholder"
-                android:alpha="0.2" />
+                android:alpha="0.25"
+                android:contentDescription="@string/cd_pdf_thumbnail" />
             <TextView
+                android:id="@+id/tvErrorMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Couldn't load this note"
+                android:text="@string/error_load_pdf"
                 android:textColor="@color/colorTextPrimary"
                 android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRetry"
                 android:layout_width="wrap_content"
@@ -92,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="110dp"
+            android:layout_marginBottom="104dp"
             android:background="@drawable/bg_pill_subject_gradient"
             android:paddingHorizontal="16dp"
             android:paddingVertical="6dp"
@@ -106,9 +108,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="12dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="10dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/colorGlassStroke"
             app:cardBackgroundColor="@color/colorGlassSurface">
@@ -117,7 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <ProgressBar
                     android:id="@+id/progressDownloading"
@@ -131,7 +133,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="48dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
@@ -139,58 +141,77 @@
                         android:id="@+id/btnDownload"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1.5"
-                        android:text="Download"
+                        android:layout_weight="1.4"
+                        android:text="@string/btn_download"
                         android:textAllCaps="false"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:background="@drawable/bg_button_primary_gradient"
                         app:backgroundTint="@null"
-                        app:cornerRadius="16dp"
-                        app:icon="@android:drawable/stat_sys_download_done" />
+                        app:cornerRadius="14dp"
+                        app:icon="@android:drawable/stat_sys_download_done"
+                        app:iconSize="16dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBookmark"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
+                        android:padding="0dp"
+                        android:contentDescription="@string/btn_bookmark"
+                        app:icon="@android:drawable/btn_star_big_off"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/colorPrimary"
+                        app:strokeColor="@color/colorDivider"
+                        app:cornerRadius="14dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnShare"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:text="Share"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorTextPrimary"
-                        app:strokeColor="@color/colorDivider"
-                        app:cornerRadius="16dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
+                        android:padding="0dp"
+                        android:contentDescription="@string/btn_share"
                         app:icon="@android:drawable/ic_menu_share"
-                        app:iconTint="@color/colorTextPrimary" />
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/colorTextPrimary"
+                        app:strokeColor="@color/colorDivider"
+                        app:cornerRadius="14dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnInfo"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:layout_marginStart="12dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
                         android:padding="0dp"
+                        android:contentDescription="@string/btn_info"
                         app:icon="@android:drawable/ic_menu_info_details"
                         app:iconGravity="textStart"
                         app:iconPadding="0dp"
                         app:iconTint="@color/colorTextPrimary"
                         app:strokeColor="@color/colorDivider"
-                        app:cornerRadius="26dp" />
+                        app:cornerRadius="14dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnDeleteFile"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:layout_marginStart="12dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
                         android:padding="0dp"
                         android:visibility="gone"
+                        android:contentDescription="@string/btn_delete_file"
                         app:icon="@android:drawable/ic_menu_delete"
                         app:iconGravity="textStart"
                         app:iconPadding="0dp"
                         app:iconTint="@color/colorError"
                         app:strokeColor="@color/colorError"
-                        app:cornerRadius="26dp" />
+                        app:cornerRadius="14dp" />
 
                 </LinearLayout>
             </LinearLayout>
