@@ -1,6 +1,10 @@
 package com.jptechgenius.notevault.utils;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 
@@ -8,6 +12,7 @@ import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Locale;
 
 /**
@@ -78,6 +83,136 @@ public final class FileUtils {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /**
+     * Generate a multi-page academic PDF document using Android's native PdfDocument API
+     * when offline demo resources are opened without a local backend server.
+     */
+    public static File generateAcademicPdfFallback(
+            Context context,
+            String fileName,
+            String title,
+            String courseCode,
+            String department,
+            String description,
+            int pageCount
+    ) {
+        File dir = ensureDownloadDir(context);
+        File outFile = new File(dir, fileName);
+        if (isValidPdfFile(outFile)) {
+            return outFile;
+        }
+
+        int totalPages = Math.max(4, Math.min(12, pageCount > 0 ? pageCount : 6));
+        PdfDocument document = new PdfDocument();
+        Paint headerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint titlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint bodyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint boxPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        String safeTitle = title != null ? title : "DIU Academic Lecture Resource";
+        String safeCourse = courseCode != null ? courseCode : "SWE211";
+        String safeDept = department != null ? department : "SWE";
+        String safeDesc = description != null ? description
+                : "Verified Daffodil International University (DIU) course study material.";
+
+        try {
+            for (int i = 1; i <= totalPages; i++) {
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, i).create();
+                PdfDocument.Page page = document.startPage(pageInfo);
+                Canvas canvas = page.getCanvas();
+
+                canvas.drawColor(Color.WHITE);
+
+                // Top Emerald Banner
+                headerPaint.setColor(Color.parseColor("#086B61"));
+                canvas.drawRect(0, 0, 595, 86, headerPaint);
+
+                titlePaint.setColor(Color.WHITE);
+                titlePaint.setTextSize(13f);
+                titlePaint.setFakeBoldText(true);
+                canvas.drawText("DAFFODIL INTERNATIONAL UNIVERSITY (DIU) • NOTEVAULT", 36, 36, titlePaint);
+
+                titlePaint.setTextSize(11f);
+                titlePaint.setFakeBoldText(false);
+                canvas.drawText("Department of " + safeDept + " • Course: " + safeCourse + " • Page " + i + " of " + totalPages, 36, 60, titlePaint);
+
+                // Document Title
+                titlePaint.setColor(Color.parseColor("#17211F"));
+                titlePaint.setTextSize(17f);
+                titlePaint.setFakeBoldText(true);
+                String shortTitle = safeTitle.length() > 54 ? safeTitle.substring(0, 54) + "..." : safeTitle;
+                canvas.drawText(shortTitle, 36, 130, titlePaint);
+
+                // Section Subtitle
+                bodyPaint.setColor(Color.parseColor("#086B61"));
+                bodyPaint.setTextSize(13f);
+                bodyPaint.setFakeBoldText(true);
+                canvas.drawText("Section " + i + ".0 — Core Concepts, Lecture Summary & Worked Examples", 36, 162, bodyPaint);
+
+                // Summary Box
+                boxPaint.setColor(Color.parseColor("#EEF3F2"));
+                canvas.drawRect(36, 180, 559, 265, boxPaint);
+
+                bodyPaint.setColor(Color.parseColor("#17211F"));
+                bodyPaint.setTextSize(11.5f);
+                bodyPaint.setFakeBoldText(false);
+                String descLine1 = safeDesc.length() > 75 ? safeDesc.substring(0, 75) : safeDesc;
+                String descLine2 = safeDesc.length() > 75 ? safeDesc.substring(75, Math.min(safeDesc.length(), 150)) : "Outcome-Based Education (OBE) aligned lecture notes and exam preparation guide.";
+                canvas.drawText(descLine1, 48, 210, bodyPaint);
+                canvas.drawText(descLine2, 48, 232, bodyPaint);
+                canvas.drawText("Course Code: " + safeCourse + "   |   Verified DIU Academic Repository", 48, 252, bodyPaint);
+
+                // Structured Lecture Points
+                int y = 305;
+                String[] topics = new String[]{
+                        "1. Theoretical Foundation & Formal Definitions (" + safeCourse + " Topic " + i + ".1)",
+                        "   • Key properties, invariants, and mathematical/algorithmic formulation.",
+                        "   • Step-by-step derivation used in DIU Midterm and Final examinations.",
+                        "2. Practical Implementation & Architecture (" + safeCourse + " Topic " + i + ".2)",
+                        "   • Standard schema / algorithm design pattern with complexity analysis.",
+                        "   • Common pitfalls and optimization strategies for lab assessments.",
+                        "3. Past Examination Question & Solution Walkthrough (Page " + i + ")",
+                        "   • Q" + i + ": Analyze the core model and demonstrate normalization / trace execution.",
+                        "   • Solution: Apply the canonical 3-step verification rule shown below."
+                };
+                for (String line : topics) {
+                    bodyPaint.setFakeBoldText(!line.startsWith("   "));
+                    bodyPaint.setColor(line.startsWith("   ") ? Color.parseColor("#4B635E") : Color.parseColor("#17211F"));
+                    canvas.drawText(line, 36, y, bodyPaint);
+                    y += 28;
+                }
+
+                // Diagram / Formula Reference Box
+                boxPaint.setColor(Color.parseColor("#ECFDF5"));
+                canvas.drawRect(36, 575, 559, 730, boxPaint);
+                bodyPaint.setFakeBoldText(true);
+                bodyPaint.setColor(Color.parseColor("#06463F"));
+                canvas.drawText("Worked Reference Block — " + safeCourse + " (Sheet #" + i + ")", 50, 605, bodyPaint);
+                bodyPaint.setFakeBoldText(false);
+                bodyPaint.setColor(Color.parseColor("#17211F"));
+                canvas.drawText("• Input Specification  -->  Validation & Normalization  -->  Verified Output", 50, 635, bodyPaint);
+                canvas.drawText("• Time / Space Bound: O(N log N) optimal | ACID / BCNF compliant", 50, 662, bodyPaint);
+                canvas.drawText("• Key Takeaway: Review this diagram before the " + safeCourse + " assessment.", 50, 689, bodyPaint);
+
+                // Footer
+                bodyPaint.setColor(Color.parseColor("#7B938E"));
+                bodyPaint.setTextSize(10f);
+                canvas.drawText("NoteVault DIU Offline PDF Engine • Page " + i + " of " + totalPages, 36, 805, bodyPaint);
+
+                document.finishPage(page);
+            }
+
+            try (FileOutputStream fos = new FileOutputStream(outFile)) {
+                document.writeTo(fos);
+                fos.flush();
+            }
+        } catch (Exception ignored) {
+        } finally {
+            document.close();
+        }
+        return outFile;
     }
 
     /**

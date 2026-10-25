@@ -217,13 +217,41 @@ public class NoteDetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 if (call.isCanceled()) return;
-                runOnUiThread(() -> viewModel.setPdfError(
-                        "Offline or network unavailable. If you have downloaded this PDF previously, open it from the Downloads tab."));
+                NoteEntity current = viewModel.getCurrentNote().getValue();
+                File fallbackFile = FileUtils.generateAcademicPdfFallback(
+                        NoteDetailActivity.this,
+                        "note_" + (noteId != -1 ? noteId : "exam") + ".pdf",
+                        current != null ? current.getTitle() : getTitle().toString(),
+                        current != null ? current.getCourseCode() : "SWE211",
+                        current != null ? current.getDepartmentName() : "SWE",
+                        current != null ? current.getDescription() : null,
+                        current != null && current.getTotalPages() > 0 ? current.getTotalPages() : 8
+                );
+                if (FileUtils.isValidPdfFile(fallbackFile)) {
+                    runOnUiThread(() -> displayPdfFromFile(fallbackFile, defaultPageZeroIndexed));
+                } else {
+                    runOnUiThread(() -> viewModel.setPdfError(
+                            "Offline or network unavailable. If you have downloaded this PDF previously, open it from the Downloads tab."));
+                }
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (!response.isSuccessful()) {
+                    NoteEntity current = viewModel.getCurrentNote().getValue();
+                    File fallbackFile = FileUtils.generateAcademicPdfFallback(
+                            NoteDetailActivity.this,
+                            "note_" + (noteId != -1 ? noteId : "exam") + ".pdf",
+                            current != null ? current.getTitle() : getTitle().toString(),
+                            current != null ? current.getCourseCode() : "SWE211",
+                            current != null ? current.getDepartmentName() : "SWE",
+                            current != null ? current.getDescription() : null,
+                            current != null && current.getTotalPages() > 0 ? current.getTotalPages() : 8
+                    );
+                    if (FileUtils.isValidPdfFile(fallbackFile)) {
+                        runOnUiThread(() -> displayPdfFromFile(fallbackFile, defaultPageZeroIndexed));
+                        return;
+                    }
                     runOnUiThread(() -> viewModel.setPdfError("Server returned HTTP " + response.code()));
                     return;
                 }

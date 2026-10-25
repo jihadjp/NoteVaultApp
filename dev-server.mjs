@@ -1133,6 +1133,112 @@ function RENDER_ANDROID_SIMULATOR_HTML() {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    /* Native Android PDFView Container */
+    .pdf-view-wrapper {
+      flex: 1;
+      position: relative;
+      background: #424947;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .pdf-Viewport {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 14px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scroll-behavior: smooth;
+    }
+    .pdf-Viewport::-webkit-scrollbar { width: 5px; }
+    .pdf-Viewport::-webkit-scrollbar-thumb { background: #086B61; border-radius: 4px; }
+    .pdf-sheet {
+      background: #FFFFFF;
+      color: #17211F;
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+      padding: 16px 16px 18px;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform-origin: top center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .pdf-Viewport.night-paper .pdf-sheet {
+      background: #16201E;
+      color: #E6F2EF;
+      border: 1px solid #2A3F3B;
+    }
+    .pdf-sheet-banner {
+      background: #086B61;
+      color: #FFFFFF;
+      margin: -16px -16px 12px -16px;
+      padding: 10px 14px;
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .pdf-code-block {
+      font-family: monospace;
+      font-size: 10.5px;
+      background: #EEF3F2;
+      color: #06463F;
+      border-left: 3px solid #086B61;
+      padding: 8px 10px;
+      border-radius: 4px;
+      margin: 8px 0;
+      white-space: pre-wrap;
+      line-height: 1.4;
+    }
+    .pdf-Viewport.night-paper .pdf-code-block {
+      background: #0E1615;
+      color: #5EEAD4;
+      border-left-color: #14B8A6;
+    }
+    .pdf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+      margin: 8px 0;
+    }
+    .pdf-table th, .pdf-table td {
+      border: 1px solid #CBD5E1;
+      padding: 5px 7px;
+      text-align: left;
+    }
+    .pdf-table th {
+      background: #E6F4F2;
+      color: #086B61;
+      font-weight: 700;
+    }
+    .pdf-Viewport.night-paper .pdf-table th {
+      background: #1F3330;
+      color: #2DD4BF;
+      border-color: #334B47;
+    }
+    .pdf-Viewport.night-paper .pdf-table td {
+      border-color: #334B47;
+    }
+    .pdf-scroll-handle {
+      position: absolute;
+      right: 6px;
+      top: 16px;
+      background: rgba(8, 107, 97, 0.92);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 12px 0 0 12px;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: top 0.1s ease;
+    }
 
     /* Android Bottom Sheet / Dialog Overlay */
     .sheet-backdrop {
@@ -1325,12 +1431,19 @@ function RENDER_ANDROID_SIMULATOR_HTML() {
         <div class="detail-title" id="detailToolbarTitle">Note Title</div>
         <button class="icon-btn" style="background:rgba(255,255,255,0.18); color:#fff; border:none;" id="btnDetailInfo">ⓘ Info</button>
       </div>
-      <div style="padding:8px 14px; background:var(--colorSurfaceVariant); border-bottom:1px solid var(--colorDivider); display:flex; justify-content:space-between; align-items:center; font-size:11.5px; font-weight:700;">
-        <span id="detailCourseBadge" style="color:var(--colorPrimary);">SWE211 • Lecture Notes</span>
-        <span id="tvPageIndicator" style="background:var(--colorPrimary); color:#fff; padding:2px 9px; border-radius:99px;">Page 1 / 42</span>
+      <div style="padding:7px 12px; background:var(--colorSurfaceVariant); border-bottom:1px solid var(--colorDivider); display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:700; gap:6px;">
+        <span id="detailCourseBadge" style="color:var(--colorPrimary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">SWE211 • Lecture Notes</span>
+        <div style="display:flex; align-items:center; gap:5px; flex-shrink:0;">
+          <button class="icon-btn" style="padding:2px 6px; font-size:10px;" onclick="adjustPdfZoom(-0.1)" title="Zoom Out">A-</button>
+          <button class="icon-btn" style="padding:2px 6px; font-size:10px;" onclick="adjustPdfZoom(0.1)" title="Zoom In">A+</button>
+          <button class="icon-btn" style="padding:2px 6px; font-size:10px;" onclick="togglePdfNightMode()" title="Reader Dark Paper">◐</button>
+          <span id="tvPageIndicator" style="background:var(--colorPrimary); color:#fff; padding:2px 8px; border-radius:99px;">Page 1 / 42</span>
+        </div>
       </div>
-      <div style="flex:1; background:#525659; display:flex; flex-direction:column;">
-        <iframe id="pdfFrame" src="/api/sample-pdf/1" style="width:100%; flex:1; border:none; background:#fff;"></iframe>
+      <!-- Multi-Page Android PDFView Canvas -->
+      <div class="pdf-view-wrapper">
+        <div class="pdf-Viewport" id="pdfViewport"></div>
+        <div class="pdf-scroll-handle" id="pdfScrollHandle">1 / 42</div>
       </div>
       <div style="padding:10px 12px; background:var(--colorSurface); border-top:1px solid var(--colorDivider); display:flex; gap:6px; align-items:center;">
         <button class="btn-card-sec" onclick="stepDetailPage(-1)">◀ Prev</button>
@@ -1371,10 +1484,12 @@ function RENDER_ANDROID_SIMULATOR_HTML() {
       questions: [],
       downloadedIds: new Set(JSON.parse(localStorage.getItem('nv_downloaded') || '[1]')),
       bookmarkedIds: new Set(JSON.parse(localStorage.getItem('nv_bookmarks') || '[1, 4]')),
-      readingProgress: JSON.parse(localStorage.getItem('nv_progress') || '{"id":1,"title":"Database Management Systems — Relational Algebra & SQL Normalization Notes","page":14,"total":42}'),
+      readingProgress: JSON.parse(localStorage.getItem('nv_progress') || '{"id":1,"title":"Database Management Systems — Relational Algebra & SQL Normalization Notes","page":1,"total":42}'),
       plannerTasks: JSON.parse(localStorage.getItem('nv_tasks') || '[{"title":"SWE211 Midterm Exam","course":"SWE211","days":6}]'),
       activeNote: null,
-      activePage: 1
+      activePage: 1,
+      pdfZoom: 1,
+      pdfNight: false
     };
 
     // Hide SplashActivity after 1.1 seconds on initial load
@@ -1458,7 +1573,7 @@ function RENDER_ANDROID_SIMULATOR_HTML() {
               <span class="subject-chip">\${q.department_short} • \${q.semester_name}</span>
               <span class="downloaded-badge" style="background:#FEF3C7; color:#92400E;">\${q.exam_type}</span>
             </div>
-            <div class="note-title">\${q.course_name}</div>
+            <div class="note-title" onclick="openQuestionDetail(\${q.id}, '\${q.course_name.replace(/'/g, "")}')">\${q.course_name}</div>
             <div class="note-desc">Verified DIU Past Question Paper · \${q.submissions_count} student submissions</div>
             <div class="note-meta">
               <span>📅 \${q.created_at}</span>
@@ -1536,16 +1651,250 @@ function RENDER_ANDROID_SIMULATOR_HTML() {
       }).join('');
     }
 
+    // Generate Rich Multi-Page Academic Content for Android PDFView
+    function buildPdfSheetHtml(note, pageNum, totalPages) {
+      const code = (note.courseCode || 'SWE211').toUpperCase();
+      let topicTitle = \`Chapter \${pageNum}: Fundamental Concepts & Core Architecture\`;
+      let bodyHtml = '';
+
+      if (code === 'SWE211') {
+        const topics = [
+          {
+            t: 'Relational Database Architecture & ER Modeling',
+            b: \`
+              <p style="font-size:11.5px; line-height:1.5; margin-bottom:8px;">
+                An <strong>Entity-Relationship (ER) Model</strong> represents data entities, attributes, and cardinality constraints (1:1, 1:N, M:N) before mapping to relational tables.
+              </p>
+              <table class="pdf-table">
+                <tr><th>Entity</th><th>Primary Key</th><th>Attributes</th></tr>
+                <tr><td>Student</td><td>student_id (PK)</td><td>name, batch, dept_id (FK)</td></tr>
+                <tr><td>Course</td><td>course_code (PK)</td><td>title, credit_hours, semester</td></tr>
+                <tr><td>Enrollment</td><td>(student_id, course_code)</td><td>grade, enrolled_at</td></tr>
+              </table>
+              <div class="pdf-code-block">-- SQL DDL Schema Definition (DIU SWE211 Lab)
+CREATE TABLE students (
+  student_id VARCHAR(16) PRIMARY KEY,
+  full_name VARCHAR(100) NOT NULL,
+  batch_name VARCHAR(16) DEFAULT 'SWE-43',
+  cgpa DECIMAL(3,2) CHECK (cgpa BETWEEN 0.00 AND 4.00)
+);</div>\`
+          },
+          {
+            t: 'Relational Algebra Operators (σ, π, ⋈, ÷)',
+            b: \`
+              <p style="font-size:11.5px; line-height:1.5; margin-bottom:8px;">
+                <strong>Relational Algebra</strong> is a procedural query language that takes one or two relations as input and produces a new relation without side effects.
+              </p>
+              <table class="pdf-table">
+                <tr><th>Operator</th><th>Notation</th><th>SQL Equivalent</th></tr>
+                <tr><td>Selection</td><td>σ_{dept='SWE'}(Students)</td><td>WHERE dept = 'SWE'</td></tr>
+                <tr><td>Projection</td><td>π_{name, cgpa}(Students)</td><td>SELECT name, cgpa</td></tr>
+                <tr><td>Natural Join</td><td>Students ⋈ Departments</td><td>NATURAL JOIN / INNER JOIN</td></tr>
+              </table>
+              <div class="pdf-code-block">-- Equivalent SQL Query for Relational Expression:
+SELECT s.student_id, s.full_name, c.course_title
+FROM students s
+INNER JOIN enrollments e ON s.student_id = e.student_id
+INNER JOIN courses c ON e.course_code = c.course_code
+WHERE s.batch_name = 'SWE-43' AND e.semester = 'L2-T1';</div>\`
+          },
+          {
+            t: 'Functional Dependencies & 1NF → 2NF → 3NF → BCNF',
+            b: \`
+              <p style="font-size:11.5px; line-height:1.5; margin-bottom:8px;">
+                <strong>Boyce-Codd Normal Form (BCNF):</strong> For every non-trivial functional dependency <code>X → Y</code> in relation <code>R</code>, <code>X</code> must be a superkey of <code>R</code>.
+              </p>
+              <table class="pdf-table">
+                <tr><th>Normal Form</th><th>Eliminates Anomaly</th><th>Core Requirement</th></tr>
+                <tr><td>1NF</td><td>Repeating Groups</td><td>Atomic attribute values</td></tr>
+                <tr><td>2NF</td><td>Partial Dependency</td><td>1NF + No non-prime attr depends on part of PK</td></tr>
+                <tr><td>3NF</td><td>Transitive Dependency</td><td>2NF + No X → Y → Z non-key chain</td></tr>
+                <tr><td>BCNF</td><td>All FD Redundancy</td><td>Every determinant X is a candidate/super key</td></tr>
+              </table>
+              <div class="pdf-code-block">Given R(A, B, C, D) with FDs: { A → BC, C → D, B → A }
+1. Closure (A)+ = {A, B, C, D} => A is a Candidate Key
+2. Closure (B)+ = {B, A, C, D} => B is a Candidate Key
+3. C → D violates 3NF/BCNF because C is not a superkey.
+Decomposition: R1(C, D) and R2(A, B, C) [Lossless & Dependency Preserving]</div>\`
+          },
+          {
+            t: 'ACID Transactions, Concurrency & B+ Tree Indexing',
+            b: \`
+              <p style="font-size:11.5px; line-height:1.5; margin-bottom:8px;">
+                Database transactions guarantee <strong>Atomicity, Consistency, Isolation, and Durability (ACID)</strong> using Write-Ahead Logging (WAL) and Two-Phase Locking (2PL).
+              </p>
+              <div class="pdf-code-block">BEGIN TRANSACTION;
+  UPDATE accounts SET balance = balance - 5000 WHERE acc_id = 101;
+  UPDATE accounts SET balance = balance + 5000 WHERE acc_id = 202;
+COMMIT; -- Durable in redo log; ROLLBACK on constraint failure</div>
+              <p style="font-size:11px; line-height:1.45; margin-top:6px;">
+                • <strong>B+ Tree Index Lookup:</strong> O(log_b N) disk I/O operations; all data pointers reside in linked leaf nodes for fast range scans (<code>BETWEEN</code>).
+              </p>\`
+          }
+        ];
+        const pick = topics[(pageNum - 1) % topics.length];
+        topicTitle = \`Section \${pageNum}: \${pick.t}\`;
+        bodyHtml = pick.b;
+      } else if (code === 'CSE226') {
+        topicTitle = \`Lecture \${pageNum}: Numerical Root Finding & Linear Systems\`;
+        bodyHtml = \`
+          <p style="font-size:11.5px; line-height:1.5; margin-bottom:8px;">
+            <strong>Newton-Raphson Iterative Formula:</strong> Rapidly approximates roots of a differentiable real function <code>f(x) = 0</code> with quadratic convergence O(h²).
+          </p>
+          <div class="pdf-code-block">x_{n+1} = x_n - [ f(x_n) / f'(x_n) ]   where f'(x_n) ≠ 0
+Example: Solve f(x) = x³ - 2x - 5 = 0,  f'(x) = 3x² - 2,  x₀ = 2.0</div>
+          <table class="pdf-table">
+            <tr><th>Iteration (n)</th><th>x_n</th><th>f(x_n)</th><th>x_{n+1}</th><th>|Error|</th></tr>
+            <tr><td>0</td><td>2.00000</td><td>-1.00000</td><td>2.10000</td><td>0.10000</td></tr>
+            <tr><td>1</td><td>2.10000</td><td>0.06100</td><td>2.09457</td><td>0.00543</td></tr>
+            <tr><td>2</td><td>2.09457</td><td>0.00002</td><td>2.09455</td><td>0.00002</td></tr>
+          </table>\`;
+      } else if (code === 'exam' || note.isQuestion) {
+        topicTitle = \`DIU Examination Paper — Section \${pageNum}\`;
+        bodyHtml = \`
+          <p style="font-size:11.5px; line-height:1.5; margin-bottom:8px;">
+            <strong>Time:</strong> 1.5 Hours &nbsp;|&nbsp; <strong>Full Marks:</strong> 25 &nbsp;|&nbsp; <em>Answer all questions. Figures in the right margin indicate full marks.</em>
+          </p>
+          <div class="pdf-code-block">Q\${pageNum}(a) [CO1 — 4 Marks]
+Explain the architectural difference between 3NF and BCNF with a concrete relational schema example from a university registration system.
+
+Q\${pageNum}(b) [CO2 — 5 Marks]
+Given the relation R(CourseCode, Section, TeacherID, RoomNo, TimeSlot), identify all candidate keys and normalize R up to BCNF.</div>
+          <p style="font-size:11px; color:#4B635E;">
+            <strong>Solution Guideline (Verified by Faculty):</strong> Show closure sets for each determinant before decomposing relations.
+          </p>\`;
+      } else {
+        topicTitle = \`Module \${pageNum}: \${note.courseName || note.title} — Lecture & Lab Guide\`;
+        bodyHtml = \`
+          <p style="font-size:11.5px; line-height:1.5; margin-bottom:8px;">
+            \${note.description || 'Outcome-Based Education (OBE) aligned lecture resource for Daffodil International University students.'}
+          </p>
+          <div class="pdf-code-block">// Verified Reference Implementation — \${code} (Page \${pageNum})
+public class AcademicResourceModule_\${pageNum} {
+    public static void executeVerification(String courseCode) {
+        System.out.println("DIU Verified Study Module: " + courseCode + " [Page \${pageNum}]");
+    }
+}</div>
+          <table class="pdf-table">
+            <tr><th>Assessment Component</th><th>Weight</th><th>OBE Target</th></tr>
+            <tr><td>Midterm Examination</td><td>25%</td><td>CO1, CO2</td></tr>
+            <tr><td>Lab / Project Defense</td><td>25%</td><td>CO3</td></tr>
+            <tr><td>Final Examination</td><td>40%</td><td>CO2, CO3, CO4</td></tr>
+          </table>\`;
+      }
+
+      return \`
+        <div class="pdf-sheet" id="pdfPage_\${pageNum}" data-page="\${pageNum}" style="zoom:\${state.pdfZoom};">
+          <div>
+            <div class="pdf-sheet-banner">
+              <span>DAFFODIL INTERNATIONAL UNIVERSITY (DIU) • \${code}</span>
+              <span>PAGE \${pageNum} OF \${totalPages}</span>
+            </div>
+            <div style="font-size:10px; font-weight:700; color:#086B61; margin-bottom:3px;">
+              \${note.departmentName || 'SWE'} DEPARTMENT • \${note.resourceCategory || 'LECTURE NOTES'} • \${note.semesterName || 'L2-T1'}
+            </div>
+            <h3 style="font-size:13.5px; font-weight:700; margin-bottom:8px; line-height:1.35;">
+              \${topicTitle}
+            </h3>
+            \${bodyHtml}
+          </div>
+          <div style="margin-top:12px; padding-top:8px; border-top:1px solid #DCE5E3; display:flex; justify-content:space-between; font-size:9.5px; color:#7B938E;">
+            <span>Contributor: \${note.userName || 'DIU Faculty'} ✓</span>
+            <span>NoteVault Offline PDF Engine • Sheet #\${pageNum}</span>
+          </div>
+        </div>
+      \`;
+    }
+
+    function renderPdfDocumentInViewport(note, startPage) {
+      const viewport = document.getElementById('pdfViewport');
+      const total = Math.max(1, Number(note.totalPages || 12));
+      const pagesHtml = [];
+      for (let p = 1; p <= total; p++) {
+        pagesHtml.push(buildPdfSheetHtml(note, p, total));
+      }
+      viewport.innerHTML = pagesHtml.join('');
+
+      setTimeout(() => {
+        const targetEl = document.getElementById('pdfPage_' + startPage);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'instant', block: 'start' });
+        } else {
+          viewport.scrollTop = 0;
+        }
+        updatePdfPageIndicators(startPage, total);
+      }, 30);
+    }
+
+    function updatePdfPageIndicators(page, total) {
+      document.getElementById('tvPageIndicator').textContent = \`Page \${page} / \${total}\`;
+      const handle = document.getElementById('pdfScrollHandle');
+      if (handle) {
+        handle.textContent = \`\${page} / \${total}\`;
+      }
+    }
+
+    window.adjustPdfZoom = function(delta) {
+      state.pdfZoom = Math.min(1.4, Math.max(0.85, Number((state.pdfZoom + delta).toFixed(2))));
+      document.querySelectorAll('#pdfViewport .pdf-sheet').forEach(el => {
+        el.style.zoom = state.pdfZoom;
+      });
+    };
+
+    window.togglePdfNightMode = function() {
+      state.pdfNight = !state.pdfNight;
+      document.getElementById('pdfViewport').classList.toggle('night-paper', state.pdfNight);
+    };
+
+    // Track scroll inside #pdfViewport just like Android PDFView DefaultScrollHandle
+    document.getElementById('pdfViewport').addEventListener('scroll', function() {
+      if (!state.activeNote) return;
+      const viewport = this;
+      const total = state.activeNote.totalPages || 12;
+      const maxScroll = Math.max(1, viewport.scrollHeight - viewport.clientHeight);
+      const ratio = Math.min(1, Math.max(0, viewport.scrollTop / maxScroll));
+
+      const handle = document.getElementById('pdfScrollHandle');
+      if (handle) {
+        const topPx = 14 + ratio * Math.max(0, viewport.clientHeight - 52);
+        handle.style.top = topPx + 'px';
+      }
+
+      const sheets = viewport.querySelectorAll('.pdf-sheet');
+      let visiblePage = state.activePage;
+      const viewMid = viewport.scrollTop + 140;
+      sheets.forEach(sheet => {
+        if (sheet.offsetTop <= viewMid) {
+          visiblePage = Number(sheet.dataset.page || 1);
+        }
+      });
+
+      if (visiblePage !== state.activePage) {
+        state.activePage = visiblePage;
+        updatePdfPageIndicators(state.activePage, total);
+        if (!state.activeNote.isQuestion) {
+          state.readingProgress = {
+            id: state.activeNote.id,
+            title: state.activeNote.title,
+            page: state.activePage,
+            total
+          };
+          saveLocal();
+          renderApp();
+        }
+      }
+    });
+
     // Detail Activity (NoteDetailActivity.java)
     window.openDetailActivity = function(id, resumePage) {
       const note = state.resources.find(r => r.id === id) || state.resources[0];
       state.activeNote = note;
+      const total = note.totalPages || 24;
       state.activePage = resumePage || (state.readingProgress.id === note.id ? state.readingProgress.page : 1);
 
       document.getElementById('detailToolbarTitle').textContent = note.title;
       document.getElementById('detailCourseBadge').textContent = \`\${note.courseCode} • \${note.resourceCategory} • \${note.semesterName}\`;
-      document.getElementById('tvPageIndicator').textContent = \`Page \${state.activePage} / \${note.totalPages || 30}\`;
-      document.getElementById('pdfFrame').src = \`/api/sample-pdf/\${note.id}\`;
+      updatePdfPageIndicators(state.activePage, total);
 
       const isDown = state.downloadedIds.has(note.id);
       document.getElementById('btnDetailDownload').textContent = isDown ? '✓ Saved Offline' : '⬇ Save Offline';
@@ -1556,34 +1905,64 @@ function RENDER_ANDROID_SIMULATOR_HTML() {
       document.getElementById('btnDetailInfo').onclick = () => openInfoSheet(note.id);
       document.getElementById('btnDetailRate').onclick = () => openRateSheet(note.id);
 
-      state.readingProgress = { id: note.id, title: note.title, page: state.activePage, total: note.totalPages || 30 };
+      state.readingProgress = { id: note.id, title: note.title, page: state.activePage, total };
       saveLocal();
       renderApp();
 
       document.getElementById('detailActivity').classList.add('open');
+      renderPdfDocumentInViewport(note, state.activePage);
     };
 
     window.openQuestionDetail = function(id, title) {
+      const qObj = state.questions.find(q => q.id === id) || {
+        id,
+        course_name: title,
+        department_short: 'SWE',
+        exam_type: 'MID TERM',
+        semester_name: 'L2-T1'
+      };
+      const questionNote = {
+        id: qObj.id,
+        title: qObj.course_name,
+        courseCode: 'exam',
+        courseName: qObj.course_name,
+        departmentName: qObj.department_short,
+        resourceCategory: qObj.exam_type + ' PAPER',
+        semesterName: qObj.semester_name,
+        userName: 'DIU Exam Controller',
+        totalPages: 6,
+        isQuestion: true
+      };
+      state.activeNote = questionNote;
+      state.activePage = 1;
       document.getElementById('detailToolbarTitle').textContent = title;
-      document.getElementById('detailCourseBadge').textContent = 'Past Examination Paper • PDF';
-      document.getElementById('tvPageIndicator').textContent = 'Page 1 / 6';
-      document.getElementById('pdfFrame').src = \`/api/sample-pdf/\${id}\`;
+      document.getElementById('detailCourseBadge').textContent = \`\${qObj.department_short} • \${qObj.exam_type} • \${qObj.semester_name}\`;
+      updatePdfPageIndicators(1, 6);
       document.getElementById('detailActivity').classList.add('open');
+      renderPdfDocumentInViewport(questionNote, 1);
     };
 
     window.stepDetailPage = function(delta) {
       if (!state.activeNote) return;
-      const total = state.activeNote.totalPages || 30;
+      const total = state.activeNote.totalPages || 12;
       state.activePage = Math.min(total, Math.max(1, state.activePage + delta));
-      document.getElementById('tvPageIndicator').textContent = \`Page \${state.activePage} / \${total}\`;
-      state.readingProgress = {
-        id: state.activeNote.id,
-        title: state.activeNote.title,
-        page: state.activePage,
-        total
-      };
-      saveLocal();
-      renderApp();
+      updatePdfPageIndicators(state.activePage, total);
+
+      const targetEl = document.getElementById('pdfPage_' + state.activePage);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (!state.activeNote.isQuestion) {
+        state.readingProgress = {
+          id: state.activeNote.id,
+          title: state.activeNote.title,
+          page: state.activePage,
+          total
+        };
+        saveLocal();
+        renderApp();
+      }
     };
 
     window.closeDetailActivity = function() {
